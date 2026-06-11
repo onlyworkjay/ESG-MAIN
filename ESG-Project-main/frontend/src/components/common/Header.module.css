@@ -1,0 +1,512 @@
+.header {
+  height: 64px;
+  background: linear-gradient(to right, #b8752e, var(--bun), #b8752e);
+  border-bottom: 1px solid rgba(74, 46, 36, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  overflow: visible;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse 16px 8px at 11% 25%,
+      rgba(105, 62, 25, 0.42) 0 48%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 14px 7px at 23% 68%,
+      rgba(105, 62, 25, 0.34) 0 48%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 18px 9px at 37% 28%,
+      rgba(105, 62, 25, 0.4) 0 48%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 13px 7px at 49% 73%,
+      rgba(105, 62, 25, 0.32) 0 48%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 17px 8px at 63% 22%,
+      rgba(105, 62, 25, 0.38) 0 48%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 14px 7px at 76% 68%,
+      rgba(105, 62, 25, 0.33) 0 48%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 18px 9px at 89% 30%,
+      rgba(105, 62, 25, 0.4) 0 48%,
+      transparent 52%
+    );
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logoArea {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 42px;
+  height: 42px;
+  padding: 4px;
+
+  border-radius: var(--radius-md);
+  background-color: var(--ivory);
+
+  display: block;
+  object-fit: contain;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.logoText {
+  color: var(--patty);
+  font-size: 28px;
+  font-family: bold;
+  line-height: 1;
+}
+
+.logoSub {
+  margin-top: 4px;
+  color: rgba(74, 46, 36, 0.7);
+  font-size: 12px;
+  font-family: light;
+}
+
+.navPanel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 40px;
+
+  min-width: 0;
+  flex: 1;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  display: flex;
+  align-items: center;
+  gap: 34px;
+
+  transform: translate(-50%, -50%);
+}
+
+.navLink,
+.active {
+  position: relative;
+  font-size: 16px;
+  font-family: medium;
+  transition: 0.2s;
+}
+
+.navLink {
+  color: rgba(74, 46, 36, 0.7);
+}
+
+.navLink:hover {
+  color: var(--patty);
+}
+
+.active {
+  color: var(--patty);
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 3px;
+  border-radius: 999px;
+  background-color: var(--patty);
+}
+
+.mobileMenuButton {
+  display: none;
+}
+
+.auth {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.login {
+  color: rgba(74, 46, 36, 0.8);
+  font-size: 15px;
+  font-family: medium;
+  transition: 0.2s;
+}
+
+.login:hover {
+  color: var(--patty);
+}
+
+.join {
+  background-color: var(--patty);
+  color: var(--ivory);
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: medium;
+  transition: 0.2s;
+}
+
+.join:hover {
+  transform: translateY(-1px);
+  background-color: #3b241c;
+}
+.userArea {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profileLink {
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  display: flex;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.profileLink:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(74, 46, 36, 0.18);
+}
+
+.profileCircle {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  background: var(--bun);
+
+  color: var(--patty);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 800;
+  font-size: 14px;
+
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.nickname {
+  color: var(--patty);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.logoutButton {
+  background: transparent;
+  border: none;
+
+  color: rgba(74, 46, 36, 0.75);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.logoutButton:hover {
+  color: var(--patty);
+}
+.nickname {
+  margin-right: 16px;
+}
+
+@media (max-width: 1120px) {
+  .inner {
+    padding: 0 22px;
+    gap: 18px;
+  }
+
+  .navPanel {
+    gap: 24px;
+  }
+
+  .nav {
+    position: absolute;
+    left: 50%;
+
+    gap: 22px;
+  }
+
+  .navLink,
+  .active {
+    font-size: 15px;
+  }
+
+  .join {
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    height: 64px;
+  }
+
+  .inner {
+    position: relative;
+    padding: 0 18px;
+  }
+
+  .logoIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logoText {
+    font-size: 24px;
+  }
+
+  .logoSub {
+    font-size: 11px;
+  }
+
+  .mobileMenuButton {
+    width: 42px;
+    height: 42px;
+
+    border-radius: var(--radius-md);
+
+    background: rgba(255, 248, 236, 0.24);
+    color: var(--patty);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+  }
+
+  .mobileMenuButton :global(.material-symbols-outlined) {
+    font-size: 26px;
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 600,
+      "GRAD" 0,
+      "opsz" 24;
+  }
+
+  .navPanel {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 14px;
+    right: 14px;
+    z-index: 10;
+
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+
+    padding: 18px;
+
+    border: 1px solid rgba(74, 46, 36, 0.18);
+    border-radius: var(--radius-lg);
+
+    background: rgba(231, 181, 106, 0.98);
+
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+  }
+
+  .navPanelOpen {
+    display: flex;
+  }
+
+  .nav {
+    position: static;
+    transform: none;
+
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .navLink,
+  .active {
+    min-height: 44px;
+    padding: 12px 14px;
+
+    border-radius: var(--radius-md);
+
+    background: rgba(255, 248, 236, 0.16);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  .active {
+    background: var(--patty);
+    color: var(--ivory);
+  }
+
+  .active::after {
+    display: none;
+  }
+
+  .auth,
+  .userArea {
+    width: 100%;
+    justify-content: stretch;
+    gap: 10px;
+  }
+
+  .login,
+  .join,
+  .logoutButton {
+    min-height: 44px;
+
+    border-radius: var(--radius-md);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 1;
+  }
+
+  .login,
+  .logoutButton {
+    background: rgba(255, 248, 236, 0.2);
+  }
+
+  .profileCircle {
+    width: 36px;
+    height: 36px;
+
+    background: var(--ivory);
+    cursor: pointer;
+  }
+
+  /*업데이트된 프로필 이미지를 설정한 공간에 맞춰넣기 */
+  .profileImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /*커서 포인터는 상위 부모 얘뜰에게 넣어줘야 한다 */
+  .nickname {
+    margin-right: auto;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 520px) {
+  .inner {
+    padding: 0 14px;
+  }
+
+  .logoArea {
+    gap: 10px;
+  }
+
+  .logoIcon {
+    width: 34px;
+    height: 34px;
+    padding: 3px;
+  }
+
+  .logoText {
+    font-size: 22px;
+  }
+
+  .logoSub {
+    display: none;
+  }
+
+  .navPanel {
+    left: 10px;
+    right: 10px;
+    padding: 14px;
+  }
+
+  .nav {
+    grid-template-columns: 1fr;
+  }
+
+  .auth,
+  .userArea {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .profileLink {
+    display: none;
+  }
+
+  .nickname {
+    width: 100%;
+    margin-right: 0;
+
+    text-align: center;
+  }
+}

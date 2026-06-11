@@ -1,0 +1,325 @@
+.gram_write_wrap {
+  width: min(100%, 980px);
+  min-height: calc(100vh - 80px);
+  margin: 0 auto;
+  padding: 52px 24px 72px;
+  box-sizing: border-box;
+  color: var(--ivory);
+}
+
+.gram_write_wrap::before {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 6px;
+  margin: 0 auto 18px;
+  border-radius: 999px;
+  background: var(--bun);
+  box-shadow: 0 0 22px rgba(231, 181, 106, 0.35);
+}
+
+.gram_write_wrap > h3 {
+  margin: 0 0 30px;
+  color: #fff8ec;
+  font-size: 34px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.gram_write_wrap > h3::after {
+  content: "선택한 메뉴에 대한 경험을 사진과 함께 남겨보세요.";
+  display: block;
+  margin-top: 10px;
+  color: rgba(255, 248, 236, 0.62);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.gram_input_wrap,
+.gram_file_wrap {
+  position: relative;
+  padding: 24px;
+  border: 1px solid rgba(231, 181, 106, 0.18);
+  background:
+    linear-gradient(135deg, rgba(74, 46, 36, 0.92), rgba(31, 25, 22, 0.96)),
+    radial-gradient(circle at 92% 0%, rgba(231, 181, 106, 0.2), transparent 28%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+}
+
+.gram_input_wrap:first-of-type {
+  border-radius: 22px 22px 0 0;
+}
+
+.gram_input_wrap + .gram_input_wrap,
+.gram_input_wrap + .gram_file_wrap {
+  margin-top: 14px;
+}
+
+.gram_file_wrap {
+  border-radius: 0 0 22px 22px;
+}
+
+.gram_input_wrap label,
+.gram_file_wrap > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--bun);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.gram_input_wrap label::before,
+.gram_file_wrap > label::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bun);
+}
+
+.title_input_box,
+.content_input_box {
+  position: relative;
+}
+
+.title_input_box input,
+.content_input_box textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 248, 236, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 248, 236, 0.92);
+  color: #2d211c;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-weight: 600;
+  outline: none;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.title_input_box input {
+  min-height: 54px;
+  padding: 0 86px 0 18px;
+}
+
+.content_input_box textarea {
+  min-height: 300px;
+  padding: 18px 18px 44px;
+  line-height: 1.65;
+  resize: vertical;
+}
+
+.title_input_box input::placeholder,
+.content_input_box textarea::placeholder {
+  color: rgba(45, 33, 28, 0.42);
+  font-weight: 500;
+}
+
+.title_input_box input:focus,
+.content_input_box textarea:focus {
+  border-color: var(--bun);
+  background: #fffaf2;
+  box-shadow: 0 0 0 4px rgba(231, 181, 106, 0.18);
+}
+
+.title_count,
+.content_count {
+  position: absolute;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(42, 37, 34, 0.08);
+  color: #5b7252;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.title_count {
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.content_count {
+  right: 16px;
+  bottom: 14px;
+}
+
+.limit {
+  color: var(--tomato);
+}
+
+.file_btn {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(231, 181, 106, 0.32);
+  border-radius: 14px;
+  background: rgba(231, 181, 106, 0.14);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.file_btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(231, 181, 106, 0.68);
+  background: rgba(231, 181, 106, 0.22);
+}
+
+.file_wrap {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.file_wrap:empty::before {
+  content: "이미지는 JPG, PNG, WEBP 형식으로 최대 5장까지 올릴 수 있어요.";
+  display: block;
+  padding: 28px 18px;
+  border: 1px dashed rgba(231, 181, 106, 0.34);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(255, 248, 236, 0.58);
+  font-size: 14px;
+  text-align: center;
+}
+
+.file_item {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) 32px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  margin: 0;
+  border: 1px solid rgba(231, 181, 106, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 248, 236, 0.08);
+  list-style: none;
+}
+
+.file_item li {
+  min-width: 0;
+}
+
+.file_preview {
+  width: 58px;
+  height: 58px;
+  border-radius: 13px;
+  object-fit: cover;
+  display: block;
+  background: rgba(255, 248, 236, 0.14);
+}
+
+.file_name {
+  overflow: hidden;
+  color: rgba(255, 248, 236, 0.86);
+  font-size: 14px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file_delete {
+  width: 32px !important;
+  height: 32px !important;
+  padding: 6px;
+  border-radius: 50%;
+  color: rgba(255, 248, 236, 0.7);
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.file_delete:hover {
+  background: rgba(255, 90, 79, 0.16);
+  color: var(--tomato);
+  transform: scale(1.04);
+}
+
+.gram_btn_wrap {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.regist_btn,
+.cancel_btn {
+  min-width: 124px;
+  min-height: 48px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.regist_btn {
+  border: 1px solid var(--bun);
+  background: var(--bun);
+  color: var(--patty);
+  box-shadow: 0 16px 30px rgba(231, 181, 106, 0.2);
+}
+
+.cancel_btn {
+  border: 1px solid rgba(255, 248, 236, 0.14);
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(255, 248, 236, 0.78);
+}
+
+.regist_btn:hover,
+.cancel_btn:hover {
+  transform: translateY(-2px);
+}
+
+.regist_btn:hover {
+  box-shadow: 0 20px 38px rgba(231, 181, 106, 0.28);
+}
+
+.cancel_btn:hover {
+  border-color: rgba(255, 248, 236, 0.28);
+  background: rgba(0, 0, 0, 0.26);
+}
+
+@media (max-width: 720px) {
+  .gram_write_wrap {
+    padding: 36px 18px 56px;
+  }
+
+  .gram_write_wrap > h3 {
+    font-size: 28px;
+  }
+
+  .gram_input_wrap,
+  .gram_file_wrap {
+    padding: 20px 16px;
+  }
+
+  .content_input_box textarea {
+    min-height: 240px;
+  }
+
+  .gram_btn_wrap {
+    flex-direction: column-reverse;
+  }
+
+  .regist_btn,
+  .cancel_btn {
+    width: 100%;
+  }
+}

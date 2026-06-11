@@ -1,0 +1,266 @@
+SELECT USER();
+SHOW DATABASES;
+use esg_db;
+
+CREATE TABLE users (
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    login_id VARCHAR(50) NOT NULL UNIQUE,
+    password CHAR(60) NOT NULL,
+    nickname VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) UNIQUE,
+    status VARCHAR(30) NOT NULL DEFAULT 'active',
+    role VARCHAR(30) NOT NULL DEFAULT 'user',
+    suspension_reason VARCHAR(500),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL,
+    deleted_at DATETIME NULL,
+    profile_img VARCHAR(500) NOT NULL DEFAULT '/profile_images/default_profile_image.png'
+);
+
+CREATE TABLE product_categories (
+    category_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE product_brands (
+    brand_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    brand_name VARCHAR(50) NOT NULL UNIQUE,
+    description VARCHAR(1000) NOT NULL
+);
+
+CREATE TABLE allergies (
+    allergy_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE product_items (
+    product_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    category_id BIGINT NOT NULL,
+    brand_id BIGINT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(1000) NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'active',
+    image_url VARCHAR(500) NOT NULL,
+    price INT NOT NULL,
+    weight INT NOT NULL,
+    kcal INT NOT NULL,
+    protein INT NOT NULL,
+    sodium INT NOT NULL,
+    sugar DECIMAL(6,2) NOT NULL,
+    saturated_fat DECIMAL(6,2) NOT NULL,
+    caffeine INT NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL,
+    informer_user_id BIGINT NULL,
+
+    UNIQUE (brand_id, name),
+
+    FOREIGN KEY (category_id) REFERENCES product_categories(category_id),
+    FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id),
+    FOREIGN KEY (informer_user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE choices (
+    choice_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    gram_written TINYINT(1) NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NULL,
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES product_items(product_id)
+);
+
+CREATE TABLE choice_items (
+    choice_item_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    choice_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    is_selected TINYINT(1) NOT NULL DEFAULT 0,
+    display_order INT NOT NULL,
+
+    CHECK (is_selected IN (0, 1)),
+
+    FOREIGN KEY (choice_id) REFERENCES choices(choice_id),
+    FOREIGN KEY (product_id) REFERENCES product_items(product_id)
+);
+
+CREATE TABLE grams (
+    gram_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    choice_id BIGINT NOT NULL UNIQUE,
+    user_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'active',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL,
+    deleted_at DATETIME NULL,
+
+    FOREIGN KEY (choice_id) REFERENCES choices(choice_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES product_items(product_id)
+);
+
+CREATE TABLE posts (
+    post_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    is_notice TINYINT(1) NOT NULL DEFAULT 0,
+    user_id BIGINT NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'active',
+    view_count BIGINT NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL,
+    deleted_at DATETIME NULL,
+
+    CHECK (is_notice IN (0, 1)),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE user_favorites (
+    user_id BIGINT NOT NULL,
+    target_user_id BIGINT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    description VARCHAR(1000),
+
+    PRIMARY KEY (user_id, target_user_id),
+    CHECK (user_id <> target_user_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (target_user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE user_reports (
+    report_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    target_user_id BIGINT NOT NULL,
+    reason VARCHAR(1000) NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'pending',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    completed_at DATETIME NULL,
+    admin_note VARCHAR(1000),
+    processed_by BIGINT NULL,
+
+    CHECK (user_id <> target_user_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (target_user_id) REFERENCES users(user_id),
+    FOREIGN KEY (processed_by) REFERENCES users(user_id)
+);
+
+CREATE TABLE gram_likes (
+    user_id BIGINT NOT NULL,
+    gram_id BIGINT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (user_id, gram_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (gram_id) REFERENCES grams(gram_id)
+);
+
+CREATE TABLE gram_reports (
+    report_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    gram_id BIGINT NOT NULL,
+    reason VARCHAR(1000) NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'pending',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    completed_at DATETIME NULL,
+    admin_note VARCHAR(1000),
+    processed_by BIGINT NULL,
+
+    UNIQUE (user_id, gram_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (gram_id) REFERENCES grams(gram_id),
+    FOREIGN KEY (processed_by) REFERENCES users(user_id)
+);
+
+CREATE TABLE gram_files (
+    gram_file_no BIGINT AUTO_INCREMENT PRIMARY KEY,
+    file_name VARCHAR(300) NOT NULL,
+    file_path VARCHAR(300) NOT NULL,
+    gram_id BIGINT NOT NULL,
+
+    FOREIGN KEY (gram_id) REFERENCES grams(gram_id)
+);
+
+CREATE TABLE post_likes (
+    user_id BIGINT NOT NULL,
+    post_id BIGINT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (user_id, post_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (post_id) REFERENCES posts(post_id)
+);
+
+CREATE TABLE post_reports (
+    report_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    post_id BIGINT NOT NULL,
+    reason VARCHAR(1000) NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'pending',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    completed_at DATETIME NULL,
+    admin_note VARCHAR(1000),
+    processed_by BIGINT NULL,
+
+    UNIQUE (user_id, post_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (post_id) REFERENCES posts(post_id),
+    FOREIGN KEY (processed_by) REFERENCES users(user_id)
+);
+
+CREATE TABLE post_files (
+    post_file_no BIGINT AUTO_INCREMENT PRIMARY KEY,
+    file_name VARCHAR(300) NOT NULL,
+    file_path VARCHAR(300) NOT NULL,
+    post_id BIGINT NOT NULL,
+
+    FOREIGN KEY (post_id) REFERENCES posts(post_id)
+);
+
+CREATE TABLE product_favorites (
+    user_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    description VARCHAR(1000),
+
+    PRIMARY KEY (user_id, product_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES product_items(product_id)
+);
+
+CREATE TABLE product_allergies (
+    product_allergy_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    product_id BIGINT NOT NULL,
+    allergy_id BIGINT NOT NULL,
+
+    UNIQUE (product_id, allergy_id),
+
+    FOREIGN KEY (product_id) REFERENCES product_items(product_id),
+    FOREIGN KEY (allergy_id) REFERENCES allergies(allergy_id)
+);
+
+CREATE TABLE product_suggestions (
+    suggestion_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    user_note VARCHAR(1000) NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'pending',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    completed_at DATETIME NULL,
+    admin_note VARCHAR(1000),
+    processed_by BIGINT NULL,
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES product_items(product_id),
+    FOREIGN KEY (processed_by) REFERENCES users(user_id)
+);

@@ -1,0 +1,424 @@
+/* 랜덤추첨 페이지의 필터, 진행 상태, 후보 카드 영역 스타일입니다. */
+.page {
+  min-height: 100vh;
+  padding: 52px 48px 76px;
+
+  background:
+    linear-gradient(180deg, rgba(74, 46, 36, 0.18), transparent 320px),
+    var(--background);
+  color: white;
+
+  box-sizing: border-box;
+}
+
+.header {
+  max-width: 860px;
+  margin: 0 auto 32px;
+  min-height: 176px;
+  padding: 34px 38px;
+
+  border: 1px solid rgba(231, 181, 106, 0.2);
+  border-radius: var(--radius-lg);
+
+  background:
+    linear-gradient(135deg, rgba(74, 46, 36, 0.92), rgba(31, 25, 22, 0.94)),
+    linear-gradient(
+      115deg,
+      transparent 0 72%,
+      rgba(255, 90, 79, 0.1) 72% 100%
+    );
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+
+  text-align: left;
+}
+
+.eyebrow {
+  color: var(--bun);
+
+  font-family: bold;
+  font-size: 13px;
+}
+
+.header h1 {
+  margin: 10px 0 12px;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 46px;
+  line-height: 1.12;
+}
+
+.header p {
+  color: rgba(255, 248, 236, 0.62);
+
+  font-size: 17px;
+}
+
+.filterBox,
+.stagePanel {
+  width: min(980px, 100%);
+  margin: 0 auto 24px;
+
+  border: 1px solid rgba(245, 185, 95, 0.18);
+  border-radius: 20px;
+
+  background: rgba(23, 13, 6, 0.68);
+
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
+
+  box-sizing: border-box;
+}
+
+.filterBox {
+  padding: 22px;
+}
+
+.filterHeader {
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.filterTitle {
+  margin: 0 0 5px;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 19px;
+}
+
+.filterHeader span {
+  color: rgba(255, 248, 236, 0.48);
+
+  font-size: 13px;
+}
+
+.countText {
+  margin: 0;
+  padding: 10px 14px;
+
+  border-radius: 999px;
+
+  background: rgba(245, 185, 95, 0.1);
+  color: rgba(255, 248, 236, 0.62);
+
+  white-space: nowrap;
+}
+
+.countText strong {
+  color: var(--bun);
+
+  font-family: bold;
+}
+
+.brandButtons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 10px;
+}
+
+.brandButton,
+.activeBrandButton {
+  min-height: 50px;
+  padding: 0 14px;
+
+  border: 1px solid rgba(245, 185, 95, 0.18);
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.brandButton {
+  background: rgba(255, 248, 236, 0.035);
+  color: rgba(255, 248, 236, 0.68);
+}
+
+.brandButton:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 185, 95, 0.42);
+  background: rgba(245, 185, 95, 0.08);
+}
+
+.activeBrandButton {
+  background: #f5b95f;
+  color: #160d06;
+  font-family: bold;
+  box-shadow: 0 10px 26px rgba(245, 185, 95, 0.18);
+}
+
+.brandButton span,
+.activeBrandButton span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brandButton strong,
+.activeBrandButton strong {
+  min-width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.16);
+
+  font-family: bold;
+  font-size: 12px;
+}
+
+.stagePanel {
+  padding: 22px 24px;
+}
+
+.stageHeader {
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.stageHeader span {
+  color: var(--bun);
+
+  font-family: bold;
+  font-size: 12px;
+}
+
+.stageHeader h2 {
+  margin-top: 4px;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 24px;
+}
+
+.stageHeader strong {
+  padding: 9px 13px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 248, 236, 0.06);
+  color: var(--bun);
+
+  font-family: bold;
+}
+
+.drawProgress {
+  height: 9px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 248, 236, 0.07);
+
+  overflow: hidden;
+}
+
+.drawProgress span {
+  display: block;
+
+  width: 34%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--bun);
+  transform: translateX(-100%);
+}
+
+.progressRunning span {
+  animation: drawProgress 2.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.cardArea {
+  width: min(1040px, 100%);
+  min-height: 320px;
+  margin: 30px auto;
+  padding: 30px;
+
+  border: 1px solid rgba(255, 248, 236, 0.06);
+  border-radius: 30px;
+
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.035), rgba(0, 0, 0, 0.08)),
+    rgba(0, 0, 0, 0.14);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+
+  box-shadow: inset 0 1px 0 rgba(255, 248, 236, 0.04);
+}
+
+.moreCard {
+  width: 168px;
+  min-height: 226px;
+
+  border-radius: 18px;
+  border: 1px dashed rgba(245, 185, 95, 0.28);
+
+  background: rgba(35, 21, 10, 0.56);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: rgba(255, 248, 236, 0.54);
+
+  font-size: 15px;
+}
+
+.moreCard span:first-child {
+  color: #f5b95f;
+
+  font-family: bold;
+  font-size: 32px;
+
+  margin-bottom: 8px;
+}
+
+.buttonArea {
+  text-align: center;
+}
+
+.pickButton,
+.resetButton {
+  min-height: 62px;
+  padding: 0 54px;
+
+  border-radius: 18px;
+
+  font-family: bold;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.pickButton {
+  background: #f5b95f;
+  color: #160d06;
+
+  font-size: 20px;
+
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+}
+
+.pickButton:hover,
+.resetButton:hover {
+  transform: translateY(-3px);
+}
+
+.pickButton:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.resetButton {
+  background: rgba(255, 248, 236, 0.92);
+  color: #222;
+
+  font-size: 18px;
+}
+
+.resultButtons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+@keyframes drawProgress {
+  0% {
+    transform: translateX(-100%);
+    width: 34%;
+  }
+
+  52% {
+    width: 52%;
+  }
+
+  100% {
+    transform: translateX(200%);
+    width: 72%;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 32px 20px 54px;
+  }
+
+  .header h1 {
+    font-size: 36px;
+  }
+
+  .filterHeader,
+  .stageHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .countText {
+    width: 100%;
+    text-align: center;
+  }
+
+  .brandButtons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cardArea {
+    min-height: 260px;
+    padding: 18px;
+  }
+
+  .moreCard {
+    width: 100%;
+    min-height: 120px;
+  }
+
+  .resultButtons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 460px) {
+  .brandButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .pickButton,
+  .resetButton {
+    width: 100%;
+    padding: 0 22px;
+  }
+}

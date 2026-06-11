@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.esg.choice.dao.ChoiceDao">
+    <select id="select">
+        select test1 from test_tbl where test2 = 'db_connect_success_2026';
+
+    </select>
+
+    <select id="selectProductItems" resultType="productItem">
+        SELECT
+            pi.product_id AS productId,
+            pi.category_id AS categoryId,
+            pi.brand_id AS brandId,
+            pb.brand_name AS brand,
+
+            pi.name AS productName,
+            pi.description AS description,
+            pi.status AS status,
+            pi.image_url AS imageUrl,
+            pi.price AS price,
+            pi.weight AS weight,
+            pi.kcal AS kcal,
+            pi.protein AS protein,
+            pi.sodium AS sodium,
+            pi.sugar AS sugar,
+            pi.saturated_fat AS saturatedFat,
+            pi.caffeine AS caffeine,
+            pi.created_at AS createdAt,
+            pi.updated_at AS updatedAt,
+            pi.informer_user_id AS informerUserId
+
+        FROM product_items pi
+                 JOIN product_brands pb
+                      ON pi.brand_id = pb.brand_id
+
+        WHERE pi.status = 'active'
+
+        ORDER BY pi.product_id ASC
+    </select>
+
+    <insert id="upsertChoice" parameterType="com.project.esg.choice.dto.ChoiceCreateRow">
+        INSERT INTO choices (
+            choice_group_id,
+            user_id,
+            product_id,
+            gram_written,
+            is_selected,
+            display_order,
+            created_at,
+            expires_at
+        )
+        VALUES (
+            #{choiceGroupId},
+            #{userId},
+            #{productId},
+            #{gramWritten},
+            #{isSelected},
+            #{displayOrder},
+            #{createdAt},
+            #{expiresAt}
+        )
+        ON DUPLICATE KEY UPDATE
+            choice_group_id = VALUES(choice_group_id),
+            is_selected = VALUES(is_selected),
+            display_order = VALUES(display_order),
+            created_at = VALUES(created_at),
+            expires_at = VALUES(expires_at)
+    </insert>
+
+    <select id="countTodaySelectedChoices" resultType="int">
+        SELECT COUNT(DISTINCT choice_group_id)
+        FROM choices
+        WHERE user_id = #{userId}
+          AND is_selected = 1
+          AND DATE(created_at) = CURDATE()
+    </select>
+
+    <select id="selectSelectedChoiceId" resultType="long">
+        SELECT choice_id
+        FROM choices
+        WHERE choice_group_id = #{choiceGroupId}
+          AND user_id = #{userId}
+          AND is_selected = 1
+        LIMIT 1
+    </select>
+
+    <select id="selectChoiceHeader" resultType="com.project.esg.choice.dto.ChoiceDetailResponse">
+        SELECT
+            c.choice_id AS choiceId,
+            c.choice_group_id AS choiceGroupId,
+            c.user_id AS userId,
+            c.product_id AS selectedProductId,
+            CASE
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM grams g
+                    WHERE g.choice_id = c.choice_id
+                      AND g.status != 'deleted'
+                )
+                THEN 1
+                ELSE 0
+            END AS gramWritten,
+            c.created_at AS createdAt,
+            c.expires_at AS expiresAt
+        FROM choices c
+        WHERE c.choice_id = #{choiceId}
+    </select>
+
+    <select id="selectLatestSelectedChoiceId" resultType="long">
+        SELECT choice_id
+        FROM choices
+        WHERE user_id = #{userId}
+          AND is_selected = 1
+        ORDER BY created_at DESC, choice_id DESC
+        LIMIT 1
+    </select>
+
+    <select id="selectChoiceItems" resultType="com.project.esg.choice.dto.ChoiceDetailItemDto">
+        SELECT
+            c.choice_id AS choiceId,
+            c.choice_group_id AS choiceGroupId,
+            c.product_id AS productId,
+            CASE
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM grams g
+                    WHERE g.choice_id = c.choice_id
+                      AND g.status != 'deleted'
+                )
+                THEN 1
+                ELSE 0
+            END AS gramWritten,
+            c.is_selected AS isSelected,
+            c.display_order AS displayOrder,
+            pb.brand_name AS brand,
+            pi.name AS productName,
+            pi.description AS description,
+            pi.image_url AS imageUrl,
+            pi.price AS price,
+            pi.kcal AS kcal,
+            pi.protein AS protein,
+            pi.sodium AS sodium,
+            pi.sugar AS sugar,
+            pi.saturated_fat AS saturatedFat
+        FROM choices c
+                 JOIN product_items pi
+                      ON c.product_id = pi.product_id
+                 JOIN product_brands pb
+                      ON pi.brand_id = pb.brand_id
+        WHERE c.choice_group_id = #{choiceGroupId}
+          AND c.user_id = #{userId}
+        ORDER BY c.display_order ASC
+    </select>
+	
+</mapper>

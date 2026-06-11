@@ -1,0 +1,25 @@
+/* .master_page { */
+/* width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; */
+/* margin: 0px auto; */
+/* } */
+.master_page {
+  position: relative;
+  /* height: 1000px; */
+  width: 1500px;
+  margin: 20px auto;
+}
+.master_page > button {
+  position: absolute;
+  top: 12px;
+  right: 70px;
+  color: var(--tomato);
+  background-color: var(--background);
+  border: 1px solid var(--tomato);
+  padding: 7px 12px;
+  border-radius: var(--radius-lg);
+}
+/* .master_page_body {
+} */

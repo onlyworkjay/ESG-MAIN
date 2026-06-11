@@ -1,0 +1,334 @@
+﻿/* .manageAdmins_wrap {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #f5f5f5;
+}
+
+.manageAdmins_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.manageAdmins_head,
+.manageAdmins_row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr 0.8fr 1fr 0.9fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.manageAdmins_head {
+  padding: 14px 18px;
+  border-radius: 14px 14px 0 0;
+  background: rgba(255, 255, 255, 0.04);
+  color: #b8b8b8;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.manageAdmins_row {
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.2s ease;
+}
+
+.manageAdmins_row:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.manageAdmins_row span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.manageAdmins_actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.manageAdmins_actions button {
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  background: #2f80ed;
+  color: #fff;
+  cursor: pointer;
+}
+
+.manageAdmins_actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.manageAdmins_actions button:last-child {
+  background: #ff5c5c;
+}
+
+.masterPw_form {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 360px;
+}
+
+.masterPw_form label {
+  font-size: 14px;
+  color: #eaeaea;
+}
+
+.masterPw_form input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  box-sizing: border-box;
+}
+
+.masterPw_form button {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: #2f80ed;
+  color: #fff;
+  cursor: pointer;
+}
+
+.masterPw_form p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.correct_pw {
+  color: var(--green);
+}
+
+.wrong_pw {
+  color: var(--tomato);
+} */
+
+/* ====================================================
+   ManageAdmins.module.css
+   ==================================================== */
+
+/* ── 전체 래퍼 ── */
+.manageAdmins_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 960px;
+}
+
+/* ── 페이지 제목 ── */
+.manageAdmins_title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.95;
+}
+
+/* ── 리스트 래퍼 ── */
+.manageAdmins_list {
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* ── 공통 행 그리드 ──
+   6컬럼: 로그인아이디 | 별명 | 이메일 | 상태 | 등록일 | 관리
+*/
+.manageAdmins_head,
+.manageAdmins_row {
+  display: grid;
+  grid-template-columns:
+    minmax(100px, 1.3fr) /* 로그인아이디 */
+    minmax(80px, 1fr) /* 별명 */
+    minmax(160px, 2fr) /* 이메일 */
+    minmax(60px, 0.7fr) /* 상태 */
+    minmax(90px, 1fr) /* 등록일 */
+    minmax(80px, 0.8fr); /* 관리 */
+  align-items: center;
+  padding: 0 12px;
+  gap: 4px;
+}
+
+/* ── 헤더 ── */
+.manageAdmins_head {
+  padding: 12px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  border-bottom: 1px solid currentColor;
+}
+
+.manageAdmins_head > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── 데이터 행 ── */
+.manageAdmins_row {
+  padding: 14px 12px;
+  font-size: 0.875rem;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.manageAdmins_list > .manageAdmins_row:last-child,
+.manageAdmins_list > div:last-child > .manageAdmins_row:last-child {
+  border-bottom: none;
+}
+
+.manageAdmins_row:hover {
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.08);
+}
+
+.manageAdmins_row > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── 정지 / 해제 버튼 묶음 ── */
+.manageAdmins_actions {
+  display: flex;
+  gap: 6px;
+}
+
+.manageAdmins_actions button {
+  padding: 4px 12px;
+  /* border: 1px solid currentColor; */
+  border-radius: 12px;
+  background: transparent;
+  /* color: inherit; */
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+.free_button {
+  border: 1px solid var(--pickle);
+  /* border-color: var(--pickle); */
+  color: var(--pickle);
+}
+.stop_button {
+  border: 1px solid var(--tomato);
+  /* border-color: var(--tomato); */
+  color: var(--tomato);
+}
+
+.manageAdmins_actions button:hover:not(:disabled) {
+  opacity: 1;
+}
+
+/* 비활성 버튼 */
+.manageAdmins_actions button:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+/* ── 마스터 비밀번호 확인 폼 ── */
+.masterPw_form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  padding: 20px 24px;
+  opacity: 0.9;
+}
+
+.masterPw_form label {
+  width: 100%;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* ── 개선된 input ── */
+.masterPw_form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 11px 16px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.07);
+  color: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  opacity: 0.8;
+  transition:
+    opacity 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.masterPw_form input:focus {
+  opacity: 1;
+  box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.28);
+}
+
+/* ── 암호 확인 버튼 ── */
+.masterPw_form button {
+  padding: 11px 20px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.07);
+  color: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0.7;
+  transition:
+    opacity 0.15s,
+    box-shadow 0.2s;
+}
+
+.masterPw_form button:hover {
+  opacity: 1;
+  box-shadow: 0 0 0 1px currentColor;
+}
+
+/* ── 검증 결과 메시지 ── */
+.correct_pw {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #4ade80;
+  width: 100%;
+  margin: 0;
+}
+
+.wrong_pw {
+  font-size: 0.82rem;
+  color: #f87171;
+  opacity: 0.6;
+  width: 100%;
+  margin: 0;
+}

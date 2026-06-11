@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.esg.dashboard.dao.DashboardDao">
+    <select id="selectMainDashboardStats" resultType="com.project.esg.dashboard.dto.MainDashboardStats">
+        SELECT
+            (SELECT COUNT(*) FROM product_brands) AS brandCount,
+            (SELECT COUNT(*) FROM product_items) AS menuCount,
+            (
+                SELECT COUNT(DISTINCT choice_group_id)
+                FROM choices
+                WHERE is_selected = 1
+                  AND DATE(created_at) = CURDATE()
+            ) AS todayChoiceCount,
+            (
+                SELECT COUNT(*)
+                FROM grams
+                WHERE DATE(created_at) = CURDATE()
+            ) AS todayGramCount
+    </select>
+
+    <select id="selectPopularComparisonComboRows" resultType="com.project.esg.dashboard.dto.PopularComparisonComboRow">
+        WITH group_products AS (
+            SELECT
+                choice_group_id,
+                GROUP_CONCAT(product_id ORDER BY product_id SEPARATOR ',') AS combo_key,
+                MAX(created_at) AS latest_created
+            FROM choices
+            WHERE DATE(created_at) = CURDATE()
+            GROUP BY choice_group_id
+            HAVING COUNT(*) >= 2
+        ),
+        popular_groups AS (
+            SELECT
+                combo_key,
+                COUNT(*) AS compare_count,
+                MAX(latest_created) AS latest_created,
+                SUBSTRING_INDEX(
+                    GROUP_CONCAT(choice_group_id ORDER BY latest_created DESC SEPARATOR ','),
+                    ',',
+                    1
+                ) AS sample_group_id
+            FROM group_products
+            GROUP BY combo_key
+            ORDER BY compare_count DESC, latest_created DESC
+            LIMIT 3
+        )
+        SELECT
+            pg.combo_key AS comboKey,
+            pg.compare_count AS compareCount,
+            c.display_order AS displayOrder,
+            pi.product_id AS productId,
+            pb.brand_name AS brandName,
+            pi.name AS productName,
+            pi.description AS description,
+            pi.image_url AS imageUrl,
+            pi.price AS price,
+            pi.kcal AS kcal,
+            pi.protein AS protein,
+            pi.sodium AS sodium,
+            pi.sugar AS sugar,
+            pi.saturated_fat AS saturatedFat
+        FROM popular_groups pg
+                 JOIN choices c
+                      ON c.choice_group_id = pg.sample_group_id
+                 JOIN product_items pi
+                      ON pi.product_id = c.product_id
+                 JOIN product_brands pb
+                      ON pb.brand_id = pi.brand_id
+        ORDER BY pg.compare_count DESC, pg.latest_created DESC, c.display_order ASC
+    </select>
+</mapper>

@@ -1,0 +1,320 @@
+﻿/* createBrand
+.createBrand_page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #f5f5f5;
+}
+
+.createBrand_title {
+  margin: 0 0 14px 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.createBrand_wrap {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.createBrand_content_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 1000px;
+  padding: 28px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  box-sizing: border-box;
+}
+
+.createBrand_field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.createBrand_field label {
+  font-size: 15px;
+  color: #f5f5f5;
+}
+
+.createBrand_content_wrap input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  box-sizing: border-box;
+}
+
+.createBrand_content_wrap textarea {
+  resize: none;
+  width: 100%;
+  height: 120px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  box-sizing: border-box;
+}
+
+.createBrand_submit {
+  width: 160px;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  background: #2f80ed;
+  color: #fff;
+  cursor: pointer;
+}
+
+.createBrand_list_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.createBrand_list_head,
+.createBrand_list_row {
+  display: grid;
+  grid-template-columns: 1.4fr 2fr 0.7fr 0.7fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.createBrand_list_head {
+  padding: 12px 16px;
+  border-radius: 12px 12px 0 0;
+  background: rgba(255, 255, 255, 0.04);
+  color: #b8b8b8;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.createBrand_list_body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.createBrand_list_row {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.2s ease;
+}
+
+.createBrand_list_row:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.createBrand_list_row > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.createBrand_delete {
+  width: 72px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: #ff5c5c;
+  color: #fff;
+  cursor: pointer;
+} */
+
+/* ====================================================
+   CreateBrand.module.css
+   폼(상단) + 리스트(하단) 조합 레이아웃
+   ==================================================== */
+
+/* ── 전체 페이지 래퍼 ── */
+.createBrand_page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 860px;
+}
+
+/* ── 페이지 제목 ── */
+.createBrand_title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.95;
+}
+
+/* ── 외부 래퍼 ── */
+.createBrand_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── 콘텐츠 래퍼 ── */
+.createBrand_content_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── 폼 섹션 카드 ── */
+.createBrand_field {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  gap: 12px 20px;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  padding: 18px 24px;
+  opacity: 0.9;
+}
+
+.createBrand_field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+  justify-self: end;
+}
+
+.createBrand_field input,
+.createBrand_field textarea {
+  padding: 9px 14px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  outline: none;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.createBrand_field input:focus,
+.createBrand_field textarea:focus {
+  opacity: 1;
+}
+
+.createBrand_field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ── 등록 버튼 ── */
+.createBrand_submit {
+  align-self: flex-end;
+  padding: 10px 32px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.createBrand_submit:hover {
+  opacity: 1;
+}
+
+/* ── 브랜드 리스트 섹션 ── */
+.createBrand_list_wrap {
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* ── 헤더 행 ──
+   4컬럼: 브랜드 이름 | 설명 | 메뉴 수 | 관리
+*/
+.createBrand_list_head,
+.createBrand_list_row {
+  display: grid;
+  grid-template-columns:
+    minmax(120px, 1.5fr) /* 브랜드 이름 */
+    minmax(180px, 3fr) /* 설명 */
+    minmax(70px, 0.8fr) /* 메뉴 수 */
+    minmax(70px, 0.7fr); /* 관리 */
+  align-items: center;
+  padding: 0 12px;
+  gap: 4px;
+}
+
+/* ── 헤더 ── */
+.createBrand_list_head {
+  padding: 12px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  border-bottom: 1px solid currentColor;
+}
+
+.createBrand_list_head > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── 데이터 행 ── */
+.createBrand_list_row {
+  padding: 14px 12px;
+  font-size: 0.875rem;
+  border-bottom: 1px solid currentColor;
+  transition: opacity 0.15s;
+  opacity: 0.85;
+}
+
+.createBrand_list_body > .createBrand_list_row:last-child {
+  border-bottom: none;
+}
+
+.createBrand_list_row:hover {
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.08);
+}
+
+.createBrand_list_row > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── 삭제 버튼 ── */
+.createBrand_delete {
+  padding: 5px 14px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s;
+  border-style: dashed;
+}
+
+.createBrand_delete:hover {
+  opacity: 1;
+  border-style: solid;
+}

@@ -1,0 +1,130 @@
+/* ComposeFrm 컴포넌트 */
+
+/* 전체 감싸는 영역 */
+.all {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* 제목/내용 label */
+.all label {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--ivory);
+}
+
+/* 제목 input */
+.all input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* 내용 textarea */
+.all textarea {
+  width: 100%;
+  min-height: 250px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  resize: none;
+}
+
+/* 파일추가 버튼 label */
+.file_label {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: var(--bun);
+  color: var(--ivory);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.file_label:hover {
+  opacity: 0.85;
+}
+
+/* 파일 목록 wrap */
+.file_list_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 파일 아이템 */
+.file_item_ul {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  list-style: none;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin: 0;
+  background-color: var(--patty);
+}
+
+/* 제목 input + 카운터 감싸는 영역 */
+.input_wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.input_wrap input {
+  width: 100%;
+  padding: 10px 70px 10px 12px; /* 오른쪽에 카운터 공간 확보 */
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* 제목 글자 수 - input 안 오른쪽 */
+.input_counter {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* 내용 textarea + 카운터 감싸는 영역 */
+.textarea_wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.textarea_wrap textarea {
+  width: 100%;
+  min-height: 250px;
+  padding: 10px 12px 30px 12px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  resize: none;
+}
+
+/* 내용 글자 수 - textarea 안 오른쪽 하단 */
+.textarea_counter {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+  margin-bottom: 0;
+  padding-right: 0;
+}

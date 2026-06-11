@@ -1,0 +1,402 @@
+.page {
+  min-height: 100vh;
+  padding: 46px 48px 72px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(231, 181, 106, 0.08),
+      rgba(42, 37, 34, 0.96) 360px
+    ),
+    var(--background);
+  color: var(--ivory);
+}
+
+.postShell,
+.loadingBox {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.loadingBox {
+  min-height: 320px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 248, 236, 0.08);
+  border-radius: var(--radius-lg);
+
+  background: rgba(255, 248, 236, 0.045);
+  color: rgba(255, 248, 236, 0.68);
+
+  font-family: medium;
+}
+
+.postShell {
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 248, 236, 0.08);
+  border-radius: var(--radius-lg);
+
+  background: rgba(255, 248, 236, 0.045);
+
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+}
+
+.postHeader {
+  padding: 30px 34px 26px;
+
+  border-bottom: 1px solid rgba(231, 181, 106, 0.12);
+
+  background:
+    linear-gradient(135deg, rgba(74, 46, 36, 0.7), rgba(0, 0, 0, 0.14)),
+    radial-gradient(circle at 88% 18%, rgba(231, 181, 106, 0.18), transparent 24%);
+}
+
+.backButton {
+  min-height: 38px;
+  margin-bottom: 18px;
+  padding: 0 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  border: 1px solid rgba(255, 248, 236, 0.1);
+  border-radius: var(--radius-sm);
+
+  background: rgba(0, 0, 0, 0.14);
+  color: rgba(255, 248, 236, 0.74);
+
+  font-family: medium;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.backButton:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(231, 181, 106, 0.3);
+  color: #fff8ec;
+}
+
+.backButton :global(.material-symbols-outlined) {
+  font-size: 18px;
+}
+
+.badgeRow {
+  min-height: 28px;
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.noticeBadge,
+.hiddenBadge,
+.deletedBadge {
+  min-height: 28px;
+  padding: 0 10px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  border-radius: 999px;
+
+  font-family: bold;
+  font-size: 12px;
+}
+
+.noticeBadge {
+  background: rgba(139, 195, 74, 0.16);
+  color: #bfe28c;
+}
+
+.hiddenBadge {
+  background: rgba(231, 181, 106, 0.16);
+  color: var(--bun);
+}
+
+.deletedBadge {
+  background: rgba(255, 90, 79, 0.16);
+  color: var(--tomato);
+}
+
+.noticeBadge :global(.material-symbols-outlined) {
+  font-size: 16px;
+}
+
+.postHeader h1 {
+  margin-bottom: 18px;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 34px;
+  line-height: 1.25;
+  word-break: keep-all;
+}
+
+.metaGrid {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+
+  color: rgba(255, 248, 236, 0.62);
+
+  font-size: 14px;
+}
+
+.metaGrid span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.metaGrid :global(.material-symbols-outlined) {
+  color: rgba(231, 181, 106, 0.74);
+
+  font-size: 18px;
+}
+
+.metaIcon {
+  width: 18px;
+  height: 18px;
+
+  color: rgba(231, 181, 106, 0.74);
+}
+
+.metaGrid strong {
+  color: #fff8ec;
+
+  font-family: bold;
+}
+
+.dateRow {
+  margin-top: 12px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+
+  color: rgba(255, 248, 236, 0.46);
+
+  font-size: 12px;
+}
+
+.deletedDate {
+  color: rgba(255, 90, 79, 0.82);
+}
+
+.contentSection {
+  min-height: 320px;
+  padding: 34px;
+
+  color: rgba(255, 248, 236, 0.82);
+
+  font-size: 16px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.imageSection {
+  padding: 0 34px 34px;
+}
+
+.sectionTitle {
+  margin-bottom: 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--bun);
+
+  font-family: bold;
+  font-size: 14px;
+}
+
+.sectionTitle :global(.material-symbols-outlined) {
+  font-size: 19px;
+}
+
+.imageList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.postImage {
+  width: 100%;
+  max-height: 560px;
+
+  border: 1px solid rgba(255, 248, 236, 0.08);
+  border-radius: var(--radius-md);
+
+  background: rgba(0, 0, 0, 0.16);
+
+  object-fit: contain;
+}
+
+.actionFooter {
+  min-height: 76px;
+  padding: 18px 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  border-top: 1px solid rgba(231, 181, 106, 0.12);
+
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.userActions,
+.ownerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userActions {
+  margin-left: auto;
+}
+
+.ownerActions {
+  margin-left: auto;
+}
+
+.heartButton,
+.reportButton,
+.mutedButton,
+.modifyButton,
+.deleteButton {
+  min-height: 42px;
+  padding: 0 15px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  border-radius: var(--radius-md);
+
+  font-family: bold;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.heartButton {
+  width: 42px;
+  padding: 0;
+
+  border: 1px solid rgba(255, 90, 79, 0.24);
+
+  background: rgba(255, 90, 79, 0.16);
+  color: var(--tomato);
+}
+
+.heartButtonActive {
+  background: rgba(255, 90, 79, 0.24);
+}
+
+.heartIcon {
+  width: 22px;
+  height: 22px;
+}
+
+.reportButton {
+  border: 1px solid rgba(255, 248, 236, 0.1);
+
+  background: rgba(0, 0, 0, 0.16);
+  color: rgba(255, 248, 236, 0.78);
+}
+
+.mutedButton {
+  border: 1px solid rgba(255, 248, 236, 0.08);
+
+  background: rgba(255, 248, 236, 0.08);
+  color: rgba(255, 248, 236, 0.62);
+}
+
+.modifyButton {
+  background: var(--bun);
+  color: var(--patty);
+}
+
+.deleteButton {
+  background: rgba(255, 90, 79, 0.16);
+  color: var(--tomato);
+}
+
+.heartButton:hover,
+.reportButton:hover,
+.mutedButton:hover,
+.modifyButton:hover,
+.deleteButton:hover {
+  transform: translateY(-2px);
+}
+
+.reportButton :global(.material-symbols-outlined),
+.mutedButton :global(.material-symbols-outlined),
+.deleteButton :global(.material-symbols-outlined) {
+  font-size: 19px;
+}
+
+.buttonIcon {
+  width: 19px;
+  height: 19px;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 30px 20px 56px;
+  }
+
+  .postHeader,
+  .contentSection,
+  .imageSection,
+  .actionFooter {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .postHeader h1 {
+    font-size: 27px;
+  }
+
+  .actionFooter,
+  .userActions,
+  .ownerActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .userActions,
+  .ownerActions,
+  .reportButton,
+  .mutedButton,
+  .modifyButton,
+  .deleteButton {
+    width: 100%;
+  }
+
+  .heartButton {
+    width: 42px;
+    align-self: flex-start;
+  }
+}

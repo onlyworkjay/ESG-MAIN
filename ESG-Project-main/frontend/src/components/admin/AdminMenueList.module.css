@@ -1,0 +1,185 @@
+/* ====================================================
+   AdminMenueList.module.css
+   AdminMemberInfo 와 동일한 리스트 패턴
+   ==================================================== */
+
+/* ── 페이지 제목 ── */
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.9;
+}
+
+/* ── 검색 · 필터 툴바 ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.searchInput {
+  padding: 7px 14px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  outline: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  width: 250px;
+}
+
+.searchInput:focus {
+  opacity: 1;
+}
+
+.searchBtn {
+  padding: 7px 16px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.searchBtn:hover {
+  opacity: 0.7;
+}
+
+/* ── 공통 select ── */
+.selectBox {
+  padding: 7px 12px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  outline: none;
+  opacity: 0.8;
+  color-scheme: dark;
+}
+
+.selectBox:focus {
+  opacity: 1;
+}
+
+/* option 색상 명시 (네이티브 드롭다운 가시성 보장) */
+.selectBox option {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+/* ── 리스트 래퍼 ── */
+.listWrapper {
+  width: 100%;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* ── 공통 행(row) 그리드 ──
+   5컬럼: 상품ID | 메뉴명 | 상태 | 브랜드 | 등록일
+*/
+.headerRow,
+.dataRow {
+  display: grid;
+  grid-template-columns:
+    minmax(60px, 0.6fr) /* 상품ID */
+    minmax(160px, 2.5fr) /* 메뉴명 */
+    minmax(70px, 0.8fr) /* 상태 */
+    minmax(100px, 1.2fr) /* 브랜드 */
+    minmax(100px, 1fr); /* 등록일 */
+  align-items: center;
+  padding: 0 12px;
+  gap: 4px;
+}
+
+/* ── 헤더 행 ── */
+.headerRow {
+  padding: 12px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  border-bottom: 1px solid currentColor;
+}
+
+/* ── 데이터 행 ── */
+.dataRow {
+  padding: 14px 12px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border-bottom: 1px solid currentColor;
+  transition: opacity 0.15s;
+  opacity: 0.85;
+}
+
+.dataRow:last-child {
+  border-bottom: none;
+}
+
+.dataRow:hover {
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.08);
+}
+
+/* 셀 말줄임 */
+.headerRow span,
+.dataRow p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* ── 상태 배지 ── */
+.statusBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.statusBadge[data-stat-badge="active"] {
+  color: var(--pickle);
+}
+.statusBadge[data-stat-badge="discontinued"] {
+  color: var(--bun);
+}
+.statusBadge[data-stat-badge="hidden"] {
+  color: var(--tomato);
+}
+
+/* ── 빈 결과 ── */
+.emptyMsg {
+  text-align: center;
+  padding: 48px 0;
+  opacity: 0.4;
+  font-size: 0.9rem;
+}
+
+/* ── 페이지네이션 래퍼 ── */
+.paginationWrapper {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}

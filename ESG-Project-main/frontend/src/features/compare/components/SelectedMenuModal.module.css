@@ -1,0 +1,197 @@
+.modalBackground {
+  position: fixed;
+  inset: 0;
+
+  z-index: 1200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(0, 0, 0, 0.76);
+  backdrop-filter: blur(8px);
+}
+
+.modalBox {
+  width: min(480px, 100%);
+
+  padding: 42px 40px 38px;
+
+  border: 1px solid rgba(245, 185, 95, 0.26);
+  border-radius: 28px;
+
+  background:
+    radial-gradient(circle at top, rgba(245, 185, 95, 0.08), transparent 42%),
+    #24180d;
+  color: var(--ivory);
+
+  text-align: center;
+
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
+}
+
+.icon {
+  margin: 0 0 18px;
+
+  font-size: 42px;
+  line-height: 1;
+}
+
+.modalBox h2 {
+  margin: 0;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+.description {
+  margin: 12px 0 30px;
+
+  color: rgba(255, 248, 236, 0.5);
+
+  font-family: medium;
+  font-size: 15px;
+}
+
+.menuSummary {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  margin-bottom: 30px;
+  padding: 20px;
+
+  border: 1px solid rgba(245, 185, 95, 0.28);
+  border-radius: 18px;
+
+  background: rgba(255, 248, 236, 0.03);
+
+  text-align: left;
+}
+
+.imageBox {
+  flex: 0 0 82px;
+
+  width: 82px;
+  height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background: rgba(245, 185, 95, 0.12);
+}
+
+.imageBox img {
+  display: block;
+
+  width: 74px;
+  height: 74px;
+
+  object-fit: contain;
+  object-position: center;
+
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.28));
+}
+
+.imageBox span {
+  font-size: 38px;
+  line-height: 1;
+}
+
+.menuInfo {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menuInfo span {
+  color: #f5b95f;
+
+  font-family: bold;
+  font-size: 14px;
+}
+
+.menuInfo strong {
+  overflow-wrap: anywhere;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.menuInfo p {
+  margin: 0;
+
+  color: rgba(255, 248, 236, 0.55);
+
+  font-family: medium;
+  font-size: 15px;
+}
+
+.buttonGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.cancelButton,
+.confirmButton {
+  min-height: 58px;
+  padding: 0 18px;
+
+  border-radius: 16px;
+
+  font-family: bold;
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cancelButton {
+  border: 1px solid rgba(255, 248, 236, 0.08);
+
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(255, 248, 236, 0.48);
+}
+
+.confirmButton {
+  border: 1px solid rgba(245, 185, 95, 0.4);
+
+  background: #f5b95f;
+  color: #2b180c;
+
+  box-shadow: 0 10px 24px rgba(245, 185, 95, 0.18);
+}
+
+.cancelButton:hover,
+.confirmButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.94;
+}
+
+@media (max-width: 520px) {
+  .modalBox {
+    padding: 34px 24px 28px;
+  }
+
+  .buttonGroup {
+    grid-template-columns: 1fr;
+  }
+}

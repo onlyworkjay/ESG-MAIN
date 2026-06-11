@@ -1,0 +1,502 @@
+.login_page_wrap {
+  width: 100%;
+  min-height: 100vh;
+  background: #0f0f0f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.login_container {
+  width: 100%;
+  max-width: 560px;
+}
+
+.login_header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo_box {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 24px;
+  border-radius: 18px;
+  background: #ff7417;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 14px 35px rgba(255, 116, 23, 0.25);
+}
+
+.logo_box span {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.page_title {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.page_subtitle {
+  margin: 0;
+  color: #7f8da3;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.login_card {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #2b2b2b;
+  border-radius: 20px;
+  padding: 32px 30px;
+  box-sizing: border-box;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.login_form {
+  width: 100%;
+}
+
+.input_wrap {
+  margin-bottom: 24px;
+}
+
+.input_label {
+  display: block;
+  margin-bottom: 10px;
+  color: #e5e7eb;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.form_input {
+  width: 100%;
+  height: 62px;
+  border: 1px solid #2d2d2d;
+  border-radius: 16px;
+  background: #181818;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.form_input::placeholder {
+  color: #718096;
+}
+
+.form_input:focus {
+  border-color: #ff7417;
+  background: #1d1d1d;
+  box-shadow: 0 0 0 4px rgba(255, 116, 23, 0.14);
+}
+
+.login_btn {
+  width: 100%;
+  height: 60px;
+  border: none;
+  border-radius: 16px;
+  background: #ff7417;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login_btn:hover {
+  background: #ff812b;
+  box-shadow: 0 14px 30px rgba(255, 116, 23, 0.25);
+  transform: translateY(-1px);
+}
+
+.login_btn:active {
+  transform: translateY(0);
+}
+
+.join_area {
+  margin-top: 24px;
+  text-align: center;
+  color: #7f8da3;
+  font-size: 14px;
+}
+
+.join_btn {
+  margin-left: 8px;
+  border: none;
+  background: transparent;
+  color: #ff944d;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.join_btn:hover {
+  color: #ffb27a;
+  text-decoration: underline;
+}
+
+.success_box {
+  text-align: center;
+}
+
+.success_title {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.success_text {
+  margin: 0 0 28px;
+  color: #8b98aa;
+  font-size: 16px;
+}
+
+.logout_btn {
+  width: 100%;
+  height: 58px;
+  margin-top: 12px;
+  border: 1px solid #333333;
+  border-radius: 16px;
+  background: #202020;
+  color: #d1d5db;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.logout_btn:hover {
+  border-color: #ff7417;
+  color: #ffffff;
+  background: #252525;
+}
+
+@media (max-width: 600px) {
+  .login_page_wrap {
+    padding: 28px 16px;
+  }
+
+  .login_card {
+    padding: 28px 22px;
+    border-radius: 18px;
+  }
+
+  .page_title {
+    font-size: 26px;
+  }
+
+  .form_input {
+    height: 58px;
+    font-size: 17px;
+  }
+
+  .login_btn {
+    height: 58px;
+  }
+}
+
+/*관리자 로그인 페이지*/
+.admin_page_wrap {
+  background:
+    radial-gradient(circle at top, rgba(255, 116, 23, 0.16), transparent 34%),
+    #0f0f0f;
+}
+
+.admin_logo_box {
+  background: linear-gradient(135deg, #ff7417, #ff9a3d);
+  box-shadow: 0 14px 35px rgba(255, 116, 23, 0.28);
+}
+
+.admin_logo_box span {
+  font-size: 26px;
+  letter-spacing: -0.5px;
+}
+
+.admin_page_subtitle {
+  color: #9ca3af;
+}
+
+.admin_login_card {
+  border-color: rgba(255, 116, 23, 0.22);
+}
+
+.admin_form_input:focus {
+  border-color: #ff7417;
+  background: #1d1d1d;
+  box-shadow: 0 0 0 4px rgba(255, 116, 23, 0.14);
+}
+
+.admin_login_btn {
+  background: #ff7417;
+}
+
+.admin_login_btn:hover {
+  background: #ff812b;
+  box-shadow: 0 14px 30px rgba(255, 116, 23, 0.25);
+}
+
+/*로그인의 아이디 찾기 비밀번호 찾기 버튼*/
+.find_account_area {
+  width: 100%;
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+}
+
+.find_account_link {
+  color: #8ea0b8;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.find_account_link:hover {
+  color: #ff7a1a;
+  text-decoration: underline;
+}
+
+.find_account_divider {
+  color: #3a3a3a;
+  font-size: 13px;
+}
+
+/* ESG 사이트 톤으로 맞춘 로그인 페이지 오버라이드 */
+.login_page_wrap {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(231, 181, 106, 0.14),
+      transparent 360px
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(126, 214, 165, 0.08),
+      transparent 320px
+    ),
+    var(--background);
+  color: var(--ivory);
+}
+
+.login_container {
+  max-width: 520px;
+}
+
+.login_header {
+  margin-bottom: 28px;
+}
+
+.logo_box {
+  background: var(--ivory);
+  box-shadow: 0 16px 38px rgba(231, 181, 106, 0.22);
+}
+
+.logo_box img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.logo_box span {
+  color: var(--patty);
+}
+
+.page_title {
+  color: #fff8ec;
+  font-family: bold;
+  letter-spacing: 0;
+}
+
+.page_subtitle {
+  color: rgba(255, 248, 236, 0.62);
+}
+
+.login_card {
+  border: 1px solid rgba(231, 181, 106, 0.18);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.055), rgba(0, 0, 0, 0.12)),
+    rgba(23, 13, 6, 0.72);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 248, 236, 0.05);
+}
+
+.input_label {
+  color: rgba(255, 248, 236, 0.78);
+}
+
+.form_input {
+  height: 56px;
+  border-color: rgba(231, 181, 106, 0.18);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff8ec;
+  font-size: 17px;
+}
+
+.form_input::placeholder {
+  color: rgba(255, 248, 236, 0.38);
+}
+
+.form_input:focus {
+  border-color: rgba(231, 181, 106, 0.58);
+  background: rgba(0, 0, 0, 0.26);
+  box-shadow: 0 0 0 4px rgba(231, 181, 106, 0.12);
+}
+
+.login_btn {
+  background: var(--bun);
+  color: var(--patty);
+}
+
+.login_btn:hover {
+  background: #f0c47c;
+  box-shadow: 0 14px 30px rgba(231, 181, 106, 0.22);
+}
+
+.find_account_link,
+.join_area,
+.success_text {
+  color: rgba(255, 248, 236, 0.56);
+}
+
+.find_account_link:hover,
+.join_btn:hover {
+  color: var(--bun);
+}
+
+.join_btn {
+  color: var(--bun);
+}
+
+.find_account_divider {
+  color: rgba(231, 181, 106, 0.2);
+}
+
+.success_title {
+  color: #fff8ec;
+}
+
+.login_actions {
+  margin-top: 14px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.test_account_select_wrap,
+.guest_entry_btn {
+  min-height: 48px;
+
+  border: 1px solid rgba(231, 181, 106, 0.18);
+  border-radius: var(--radius-md);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.test_account_select_wrap {
+  background: rgba(126, 214, 165, 0.12);
+}
+
+.test_account_select {
+  width: 100%;
+  height: 100%;
+  padding: 0 12px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+  color: #bfe28c;
+
+  cursor: pointer;
+}
+
+.test_account_select option {
+  color: var(--background);
+}
+
+.guest_entry_btn {
+  background: rgba(231, 181, 106, 0.14);
+  color: var(--bun);
+
+  font-family: bold;
+}
+
+.guest_entry_btn:hover {
+  border-color: rgba(231, 181, 106, 0.42);
+  background: rgba(231, 181, 106, 0.2);
+}
+
+.admin_page_wrap {
+  background:
+    radial-gradient(circle at top, rgba(255, 90, 79, 0.12), transparent 340px),
+    var(--background);
+}
+
+.admin_logo_box {
+  background: rgba(255, 90, 79, 0.16);
+  border: 1px solid rgba(255, 90, 79, 0.3);
+}
+
+.admin_logo_box span {
+  color: #ffb0aa;
+}
+
+.admin_login_card {
+  border-color: rgba(255, 90, 79, 0.22);
+}
+
+.admin_form_input:focus {
+  border-color: rgba(255, 90, 79, 0.58);
+  box-shadow: 0 0 0 4px rgba(255, 90, 79, 0.12);
+}
+
+.admin_login_btn {
+  background: var(--tomato);
+  color: #fff8ec;
+}
+
+.admin_login_btn:hover {
+  background: #ff6c62;
+  box-shadow: 0 14px 30px rgba(255, 90, 79, 0.22);
+}
+
+@media (max-width: 600px) {
+  .login_actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+.test_account_select option {
+  background-color: #2a2a2a;
+  color: #fff;
+}

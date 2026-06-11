@@ -1,0 +1,242 @@
+.find_pw_page_wrap {
+  min-height: 100vh;
+  padding: 56px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ivory);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(231, 181, 106, 0.14),
+      transparent 360px
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(126, 214, 165, 0.08),
+      transparent 320px
+    ),
+    linear-gradient(180deg, rgba(42, 37, 34, 0.96), #1b1512),
+    var(--background);
+}
+
+.find_pw_container {
+  width: min(100%, 560px);
+}
+
+.find_pw_header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.logo_box {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(231, 181, 106, 0.28);
+  border-radius: 18px;
+  background: var(--ivory);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+}
+
+.logo_box img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.page_title {
+  margin: 0;
+  color: #fff8ec;
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.page_subtitle {
+  margin: 12px 0 0;
+  color: rgba(255, 248, 236, 0.68);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.find_pw_card {
+  width: 100%;
+  padding: 34px;
+  border: 1px solid rgba(231, 181, 106, 0.2);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 236, 0.06),
+      rgba(74, 46, 36, 0.2)
+    ),
+    rgba(28, 20, 16, 0.88);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
+}
+
+.notice_box {
+  margin-bottom: 28px;
+  padding: 18px 20px;
+  border: 1px solid rgba(231, 181, 106, 0.24);
+  border-radius: var(--radius-md);
+  background: rgba(231, 181, 106, 0.09);
+}
+
+.notice_box strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--bun);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.notice_box p {
+  margin: 0;
+  color: rgba(255, 248, 236, 0.66);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.input_wrap {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.input_label {
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(255, 248, 236, 0.86);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.input_id {
+  width: 100%;
+  height: 56px;
+  padding: 0 18px;
+  border: 1px solid rgba(231, 181, 106, 0.18);
+  border-radius: var(--radius-md);
+  background: rgba(12, 9, 7, 0.5);
+  color: var(--ivory);
+  font-size: 16px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.input_id::placeholder {
+  color: rgba(255, 248, 236, 0.38);
+}
+
+.input_id:focus {
+  border-color: var(--bun);
+  background: rgba(12, 9, 7, 0.72);
+  box-shadow: 0 0 0 4px rgba(231, 181, 106, 0.13);
+}
+
+.email_area {
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.find_pw_btn {
+  width: 100%;
+  height: 58px;
+  border-radius: var(--radius-md);
+  background: var(--bun);
+  color: var(--patty);
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 16px 34px rgba(231, 181, 106, 0.22);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.find_pw_btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 20px 42px rgba(231, 181, 106, 0.3);
+}
+
+.find_pw_btn:active {
+  transform: translateY(0);
+}
+
+.disabled_btn {
+  background: rgba(255, 248, 236, 0.11);
+  color: rgba(255, 248, 236, 0.36);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.disabled_btn:hover {
+  transform: none;
+  filter: none;
+  box-shadow: none;
+}
+
+.bottom_link_area {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+}
+
+.back_login_btn {
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  color: rgba(255, 248, 236, 0.58);
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.back_login_btn:hover {
+  background: rgba(231, 181, 106, 0.08);
+  color: var(--bun);
+}
+
+@media (max-width: 600px) {
+  .find_pw_page_wrap {
+    align-items: flex-start;
+    padding: 36px 16px;
+  }
+
+  .find_pw_header {
+    margin-bottom: 24px;
+  }
+
+  .find_pw_card {
+    padding: 28px 20px;
+  }
+
+  .logo_box {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+  }
+
+  .logo_box img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .page_subtitle {
+    font-size: 14px;
+  }
+
+  .input_id,
+  .find_pw_btn {
+    height: 54px;
+  }
+}

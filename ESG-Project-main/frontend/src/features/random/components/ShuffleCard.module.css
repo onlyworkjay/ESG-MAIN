@@ -1,0 +1,338 @@
+/* 랜덤추첨 후보 카드와 결과 카드의 크기, 배치, 애니메이션 스타일입니다. */
+.card {
+  position: relative;
+
+  width: 168px;
+  min-height: 226px;
+  padding: 16px;
+
+  border: 1px solid rgba(245, 185, 95, 0.22);
+  border-radius: 18px;
+
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.035), transparent 42%),
+    linear-gradient(180deg, rgba(50, 28, 12, 0.98), rgba(18, 8, 1, 0.98));
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 236, 0.06),
+    0 14px 28px rgba(0, 0, 0, 0.22);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(245, 185, 95, 0.44);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 236, 0.08),
+    0 18px 34px rgba(0, 0, 0, 0.28);
+}
+
+.cardTop,
+.questionWrap,
+.hiddenInfo {
+  position: relative;
+  z-index: 1;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.slotLabel {
+  margin: 0;
+
+  color: rgba(255, 248, 236, 0.54);
+  font-size: 13px;
+}
+
+.cardTop span {
+  max-width: 82px;
+  padding: 5px 8px;
+
+  border-radius: 999px;
+
+  background: rgba(245, 185, 95, 0.12);
+  color: #f5b95f;
+
+  font-family: bold;
+  font-size: 12px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.questionWrap {
+  height: 92px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.questionWrap :global(.material-symbols-outlined) {
+  position: absolute;
+
+  color: rgba(255, 248, 236, 0.08);
+
+  font-size: 88px;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 300,
+    "GRAD" 0,
+    "opsz" 48;
+}
+
+.question {
+  position: relative;
+
+  width: 62px;
+  height: 62px;
+
+  border: 1px solid rgba(245, 185, 95, 0.24);
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.18);
+  color: #f5b95f;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: bold;
+  font-size: 36px;
+  line-height: 1;
+
+  box-shadow: 0 0 28px rgba(245, 185, 95, 0.14);
+}
+
+.hiddenInfo {
+  text-align: center;
+}
+
+.hiddenInfo strong {
+  display: block;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 15px;
+}
+
+.hiddenInfo p {
+  margin-top: 6px;
+
+  color: rgba(255, 248, 236, 0.54);
+
+  font-size: 12px;
+}
+
+.shuffling {
+  animation: shuffleCard 0.86s infinite cubic-bezier(0.45, 0, 0.2, 1);
+  animation-delay: var(--shuffle-delay);
+}
+
+.shuffling .question {
+  animation: questionBounce 0.86s infinite ease-in-out;
+}
+
+.resultCard {
+  width: min(520px, 100%);
+  min-height: 520px;
+  padding: 32px;
+
+  border: 1px solid rgba(245, 185, 95, 0.34);
+  border-radius: 24px;
+
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.04), transparent 34%),
+    linear-gradient(180deg, #2b180c, #160c04);
+  color: white;
+
+  text-align: center;
+
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.3);
+
+  animation: resultPop 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.resultImageBox {
+  width: 220px;
+  height: 180px;
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 26px;
+
+  background:
+    radial-gradient(circle, rgba(255, 248, 236, 0.1), transparent 70%),
+    rgba(255, 248, 236, 0.04);
+}
+
+.resultImageBox img {
+  width: 200px;
+  height: 150px;
+
+  object-fit: contain;
+  object-position: center;
+
+  filter: drop-shadow(0 20px 26px rgba(0, 0, 0, 0.32));
+}
+
+.resultImageBox span {
+  font-size: 92px;
+  line-height: 1;
+
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.3));
+}
+
+.resultBadge {
+  width: fit-content;
+  margin: 0 auto 12px;
+  padding: 7px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(245, 185, 95, 0.12);
+  color: #f5b95f;
+
+  font-family: bold;
+  font-size: 13px;
+}
+
+.brand {
+  color: #f5b95f;
+
+  font-family: bold;
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+.name {
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 32px;
+  line-height: 1.2;
+
+  margin: 0 0 14px;
+}
+
+.description {
+  max-width: 390px;
+  min-height: 44px;
+  margin: 0 auto 24px;
+
+  color: rgba(255, 248, 236, 0.58);
+
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.meta span {
+  min-height: 74px;
+  padding: 12px 10px;
+
+  border: 1px solid rgba(255, 248, 236, 0.08);
+  border-radius: 16px;
+
+  background: rgba(0, 0, 0, 0.14);
+  color: #f5b95f;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+
+  font-family: bold;
+  font-size: 15px;
+}
+
+.meta small {
+  color: rgba(255, 248, 236, 0.46);
+
+  font-family: medium;
+  font-size: 12px;
+}
+
+@keyframes shuffleCard {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+
+  34% {
+    transform: translate3d(var(--shuffle-x), var(--shuffle-y), 0)
+      rotate(var(--shuffle-rotate)) scale(1.015);
+  }
+
+  68% {
+    transform: translate3d(calc(var(--shuffle-x) * -0.7), 6px, 0)
+      rotate(calc(var(--shuffle-rotate) * -0.8)) scale(0.998);
+  }
+}
+
+@keyframes questionBounce {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+  }
+
+  50% {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  }
+}
+
+@keyframes resultPop {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 620px) {
+  .card {
+    width: 100%;
+    min-height: 190px;
+  }
+
+  .resultCard {
+    min-height: auto;
+    padding: 26px 20px;
+  }
+
+  .meta {
+    grid-template-columns: 1fr;
+  }
+}

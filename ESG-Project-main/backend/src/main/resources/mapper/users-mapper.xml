@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.esg.users.dao.UserDao">
+    <!--회원가입(김경호)-->
+    <insert id="insertUser" parameterType="user">
+        insert into users (login_id,
+                           password,
+                           nickname,
+                           email)
+        values (#{loginId},
+                #{password},
+                #{nickname},
+                #{email})
+    </insert>
+
+    <!--아이디 중복 체크 로직(김경호)-->
+    <select id="selectOneLoginId" parameterType="string" resultType="user">
+        select *
+        from users
+        where login_id = #{loginId}
+    </select>
+
+    <!--로그인 로직(김경호) -->
+    <select id="selectOneUser" parameterType="user" resultType="user">
+        select *
+        from users
+        where login_id = #{loginId}
+        and status = 'active'
+    </select>
+
+    <!--토큰 설정 로직 (김경호)-->
+    <select id="selectOneUserById" parameterType="Long" resultType="user">
+        select user_id     as userId,
+               login_id    as loginId,
+               nickname    as nickname,
+               email       as email,
+               role        as role,
+
+               profile_img as profileImg,
+               created_at  as createdAt
+        from users
+        where user_id = #{userId}
+
+
+    </select>
+
+    <!--이메일을 등록할 떄 데이터베이스에 중복된 이메일이 있는지 없는지 체크하고 등록(김경호)-->
+    <select id="checkEmail" parameterType="string" resultType="int">
+        select count(*)
+        from users
+        where email = #{email}
+    </select>
+
+    <!--관리자 로그인 설정 (김경호)-->
+    <select id="selectUserByLoginId" parameterType="string" resultType="user">
+
+        SELECT user_id           AS userId,
+               login_id          AS loginId,
+               password,
+               nickname,
+               email,
+               status,
+               role,
+               suspension_reason AS suspensionReason,
+               created_at        AS createdAt,
+               updated_at        AS updatedAt,
+               deleted_at        AS deletedAt,
+               profile_img       AS profileImg
+        FROM users
+        WHERE login_id = #{loginId}
+
+    </select>
+
+    <!--아이디 찾기 설정 로직(김경호)-->
+    <select id="findIdByNicknameEmail" resultType="string">
+        select login_id
+        from users
+        where email = #{email}
+        and nickname = #{nickname}
+        <!--mysql에서는 limit가 항상 뒤에 와야 함
+        이메일이 유니크 처리 되어 있다면 굳이 limit을 쓸 필요는 없음. 중복 방지용
+        -->
+        limit 1
+    </select>
+
+    <!--비밀번호 찾기 로직1 ==> 로그인 아이디와 이메일이 일치했을 때
+        비밀번호 수정이 가능하게 하는 로직 (김경호)
+    -->
+    <select id="selectUserByLoginIdAndEmail" parameterType="user" resultType="Integer">
+        select 1
+        from users
+        where login_id = #{loginId}
+          and email = #{email}
+
+    </select>
+
+    <!--비밀번호 찾기 로직2 ==> 임시 비밀번호 발급 받아 비밀번호 수정된 뒤 db에 저장(김경호)-->
+    <update id="updateTempPassword" parameterType="user">
+        update users
+        set password = #{password}
+        where login_id = #{loginId}
+          and email = #{email}
+    </update>
+
+    <!--재토큰 로그인 로직(김경호) -->
+    <select id="selectOneNewUser" parameterType="user" resultType="user">
+        select *
+        from users
+        where login_id = #{loginId}
+    </select>
+
+    <!--이미지 프로필 업데이트 로직(김경호)-->
+    <update id="updateProfileImage">
+        update users
+        set profile_img = #{imageUrl}
+        where user_id = #{userId}
+    </update>
+
+    <!--기존 이미지 삭제 로직(김경호)-->
+    <select id="selectProfileImage" resultType="string">
+        select profile_img
+        from users
+        where user_id = #{userId}
+    </select>
+
+    <!--기본 이미지 프로필로 돌아가기 전에 해당 이미지 파일 존재 조회(김경호)-->
+    <select id="getProfileImgByUserId" resultType="string">
+        select profile_img
+        from users
+        where user_id = #{userId}
+    </select>
+
+    <!--기본 이미지 프로필로 되돌아가게 하는 로직-->
+    <update id="resetDefaultProfileImage">
+        update users
+        set profile_img = 'https://esg-project-site.s3.ap-northeast-2.amazonaws.com/profile_images/user_default.png'
+        where user_id = #{userId}
+    </update>
+
+    <!--기존이메일을 새로운 이메일로 업데이트 (김경호)-->
+
+    <update id="updateEmail">
+        update users
+        set email = #{email}
+        where login_id = #{loginId}
+    </update>
+
+    <!--닉네임을 수정하기 위한 로직(김경호) -->
+
+    <update id="updateNickname">
+        update users
+        set nickname = #{nickname}
+        where login_id = #{loginId}
+    </update>
+    <!--민지원 인터셉터용 쿼리 조회문-->
+    <select id="userCheckStatus" resultType="user">
+        select status, suspension_reason
+        from users
+        where login_id = #{loginId}
+    </select>
+
+    <!-- 사용자 랭킹 (담당자: 장지혁) -->
+    <select id="selectWeeklyRanking" resultType="map">
+        SELECT u.user_id        AS userId,
+               u.nickname       AS nickname,
+               u.profile_img    AS profileImg,
+               COUNT(g.gram_id) AS score
+        FROM grams g
+                 LEFT JOIN users u ON g.user_id = u.user_id
+        WHERE g.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        GROUP BY u.user_id
+        ORDER BY score DESC, MAX(g.created_at) DESC LIMIT 5
+    </select>
+
+    <!-- 인기 메뉴 (담당자: 장지혁) -->
+    <select id="selectWeeklyPopularMenus" resultType="map">
+        SELECT p.product_id    AS productId,
+               p.name          AS name,
+               p.image_url     AS imageUrl,
+               p.description   AS description,
+               p.price         AS price,
+               p.weight        AS weight,
+               p.kcal          AS kcal,
+               p.protein       AS protein,
+               p.sodium        AS sodium,
+               p.sugar         AS sugar,
+               p.saturated_fat AS saturatedFat,
+               p.caffeine      AS caffeine,
+               b.brand_name    AS brandName,
+               COUNT(g.gram_id) AS count
+        FROM grams g
+            LEFT JOIN product_items p
+        ON g.product_id = p.product_id
+            LEFT JOIN product_brands b ON p.brand_id = b.brand_id
+        WHERE g.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        GROUP BY p.product_id, p.name, p.image_url, p.description, p.price,
+            p.weight, p.kcal, p.protein, p.sodium, p.sugar,
+            p.saturated_fat, p.caffeine, b.brand_name
+        ORDER BY count DESC, MAX(g.created_at) DESC
+            LIMIT 5
+    </select>
+
+    <!--마이 페이지에서 내가 작성한 게시글 보여주기 (김경호)-->
+    <!--조건식에서 AND p.status != 'deleted'을 쓰는 이유
+           진호 형님 로직을 보니 게시글을 삭제할 떄 아예 없애는 형식이 아니라
+           업데이트로 덮어 씌우기만 하고 기존데이터의 흔적은 남겨두게 한 것 같다.
+           따라서 만약 기존 데이터 값을 전부 불러오게 되는 경우, 마이페이지에서 그동안
+           삭제된 게시글과 현존하는 게시글이 전부 뒤엉켜버리는 참사가 일어날 수 있으므로
+           다음과 같은 조건을 걸어둠
+           사용자가 삭제하지 않은, 정상적인 게시글만 골라서 마이페이지에 표시해라.
+           서버의 과부하를 줄이기 위해 필요한 것만 적어서 보냄
+       -->
+    <select id="getPostsByUserId" resultType="post">
+        select p.post_id,
+               p.title,
+               p.view_count,
+               p.created_at
+
+        from posts p
+        where p.user_id = #{userId}
+          AND p.status != 'deleted'
+        order by p.created_at desc
+    </select>
+
+    <!--회원삭제하는 로직(김경호)-->
+    <update id="deleteUser" parameterType="string">
+        UPDATE users
+        SET status = 'deleted'
+        WHERE login_id = #{loginId}
+    </update>
+
+    <!--즐겨찾기한 회원의 정보를 마이페이지로 끌어오기 (김경호)-->
+    <select id="getMyFavoriteUsers" resultType="com.project.esg.users.dto.UserFavoriteListResponse">
+        SELECT
+            f.target_user_id AS targetUserId,
+            f.description AS description,
+            f.created_at AS createdAt,
+            u.nickname AS nickname,
+            u.profile_img AS profileImg,
+            u.status AS status
+        FROM user_favorites f
+                 INNER JOIN users u ON f.target_user_id = u.user_id
+        WHERE f.user_id = #{userId}
+        ORDER BY f.created_at DESC
+    </select>
+
+</mapper>

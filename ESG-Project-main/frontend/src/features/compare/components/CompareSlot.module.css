@@ -1,0 +1,142 @@
+.emptySlot {
+  position: relative;
+
+  min-height: 360px;
+  padding: 28px;
+
+  border: 2px dashed rgba(255, 248, 236, 0.35);
+  border-radius: var(--radius-lg);
+
+  background: linear-gradient(
+    145deg,
+    rgba(255, 248, 236, 0.035),
+    rgba(231, 181, 106, 0.045)
+  );
+
+  color: rgba(255, 248, 236, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.08);
+
+  overflow: hidden;
+}
+
+.emptySlot::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+
+  border: 1px dashed rgba(231, 181, 106, 0.18);
+  border-radius: 18px;
+
+  opacity: 0.7;
+}
+
+.emptySlot::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+
+  background: linear-gradient(
+    120deg,
+    transparent 38%,
+    rgba(231, 181, 106, 0.14),
+    transparent 62%
+  );
+
+  transform: translateX(-70%);
+  transition: transform 0.55s ease;
+}
+
+.emptySlot:hover {
+  border-color: var(--bun);
+
+  background: linear-gradient(
+    145deg,
+    rgba(231, 181, 106, 0.12),
+    rgba(255, 248, 236, 0.04)
+  );
+
+  color: var(--bun);
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 0 28px rgba(231, 181, 106, 0.16),
+    0 14px 28px rgba(0, 0, 0, 0.18),
+    inset 0 0 30px rgba(231, 181, 106, 0.05);
+}
+
+.emptySlot:hover::after {
+  transform: translateX(70%);
+}
+
+.plusIcon {
+  position: relative;
+  z-index: 1;
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  border: 2px dashed rgba(255, 248, 236, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+
+  margin-bottom: 14px;
+
+  transition: 0.25s ease;
+}
+
+.emptySlot:hover .plusIcon {
+  border-color: var(--bun);
+
+  background-color: rgba(231, 181, 106, 0.12);
+
+  color: var(--bun);
+}
+
+.emptySlot p {
+  position: relative;
+  z-index: 1;
+
+  max-width: 210px;
+  margin-top: 8px;
+
+  color: rgba(255, 248, 236, 0.48);
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.emptySlot strong {
+  position: relative;
+  z-index: 1;
+
+  color: rgba(255, 248, 236, 0.76);
+
+  font-family: bold;
+  font-size: 18px;
+}
+
+.buttonGroup :global(.material-symbols-outlined) {
+  font-size: 22px;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 500,
+    "GRAD" 0,
+    "opsz" 24;
+}

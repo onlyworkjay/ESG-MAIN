@@ -1,0 +1,20 @@
+.admin_menue_links {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+.admin_menue_links > a {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.admin_menue_links > a:hover {
+  color: var(--tomato);
+  filter: brightness(1.8);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+.active {
+  color: var(--bun);
+  /* background-color: var(--patty); */
+}
+/* .admin_menue_links>a:: */

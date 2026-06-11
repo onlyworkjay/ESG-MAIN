@@ -1,0 +1,838 @@
+/* 작성자: 장지혁 */
+
+/* 컴포넌트 전체 랩 */
+.page_wrap {
+  width: 900px;
+  margin: 0 auto;
+  min-height: calc(
+    100vh - 200px
+  ); /* 메뉴가 아무것도 안 나올 시 최소 간격 주기 */
+}
+
+/* 최상단에 메뉴 탐색 글자 */
+.page_title {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  color: var(--bun);
+  font-size: 30px;
+  font-weight: 600;
+}
+
+/* 전체 레이아웃: 사이드바 + 메인 */
+.eat_wrap {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  margin: 0;
+  align-items: flex-start;
+}
+
+/* 왼쪽 사이드바 */
+.sidebar {
+  width: 160px;
+  flex-shrink: 0;
+  background-color: var(--bun);
+  border-radius: 14px;
+  padding: 24px 16px;
+  height: fit-content;
+  position: sticky;
+  top: 80px;
+  align-self: flex-start;
+}
+
+/* 사이드바 카테고리 글자 */
+.sidebar_title {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ivory);
+}
+
+/* 카테고리 */
+.category_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 카테고리 탭 */
+.category_item {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--ivory);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/*  배경색을 흰색 20% 투명도로 전환 */
+.category_item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.active_category {
+  background-color: var(--ivory);
+  color: var(--bun);
+  font-weight: 700;
+}
+
+/* 메인 영역 */
+.main_content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 검색 + 정렬 */
+.search_box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.input_box {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  flex: 1;
+  background: white;
+}
+
+.input_box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+}
+
+/* 돋보기 아이콘 */
+.search_icon {
+  color: #aaa;
+  margin-right: 6px;
+  font-size: 20px !important;
+}
+
+/* 정렬 기능 */
+.sort_select {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  background: white;
+}
+
+/* 초기화 버튼 */
+.reset_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  color: #888;
+  margin: 0 4px;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.reset_btn:hover {
+  color: var(--bun);
+}
+
+/* 카드형 3x5 출력 */
+.card_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* 카드 */
+.eat_card {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--ivory);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+
+/* 마우스로 카드 갖다댔을 때 효과 주기 */
+.eat_card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card_img_wrap {
+  position: relative;
+  background: #fff8f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+}
+
+/* 카드 메뉴 이미지 */
+.card_img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  margin-top: 0;
+}
+
+/* 좋아요 버튼 */
+.like_btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ddd;
+  padding: 0;
+  transition:
+    color 0.2s,
+    transform 0.15s;
+}
+
+.like_btn:hover {
+  transform: scale(1.2);
+}
+
+/* 좋아요 클릭 시 색상 전환 */
+.liked {
+  color: var(--tomato);
+}
+
+/* 카드 정보 */
+.card_info {
+  padding: 12px 14px;
+}
+
+/* 버거 브랜드명 */
+.card_brand {
+  font-size: 15px;
+  color: var(--bun);
+  font-weight: 600;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* 메뉴명 */
+.card_name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* 가격 */
+.card_price {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+/* 최근 7일 동안 등록된 후기 여부 */
+.card_recent_none {
+  font-size: 12px;
+  color: var(--tomato);
+  margin-top: 4px;
+}
+
+/* 최근 7일 동안 등록된 후기 있을 시 카운트 */
+.card_recent_count {
+  font-size: 12px;
+  color: var(--patty);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* 페이지네이션을 감싸는 wrap */
+.pagination_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 페이지네이션 버튼 */
+.pagination button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.pagination button:disabled {
+  color: #ccc;
+  cursor: default;
+}
+
+.active_page {
+  background-color: var(--bun) !important;
+  color: white !important;
+  border-color: var(--bun) !important;
+}
+
+/* 맨 위로 이동 버튼 */
+.scroll_top_btn {
+  position: absolute;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--pickle);
+  color: var(--ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+}
+
+.scroll_top_btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+/* 모달 오버레이 */
+.modal_overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달 박스 */
+.modal_box {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  width: 950px;
+  height: 500px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* 닫기 버튼 */
+.modal_close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #aaa;
+  z-index: 10;
+}
+
+.modal_close:hover {
+  color: #333;
+}
+
+/* 모달 왼쪽 */
+.modal_left {
+  width: 380px;
+  height: 380px;
+  flex-shrink: 0;
+  background: #fff8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 모달 이미지 */
+.modal_img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
+/* 모달 오른쪽 */
+.modal_right {
+  flex: 1;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+/* 브랜드명 */
+.modal_brand {
+  font-size: 18px;
+  color: var(--bun);
+  font-weight: 600;
+}
+
+/* 메뉴명 */
+.modal_name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* 가격 */
+.modal_price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+/* 설명 */
+.modal_desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.6;
+}
+
+/* 영양 정보 타이틀 */
+.modal_section_title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #555;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #4a2e24;
+}
+
+/* 영양 정보 */
+.nutrition_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 16px;
+}
+
+.nutrition_grid div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  color: #777;
+}
+
+/* 알러지 */
+.modal_allergy {
+  margin-top: 12px;
+}
+
+.allergy_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.allergy_tag {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 최근 업데이트 한 줄 표시 */
+.modal_update_info {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 8px;
+}
+
+/* 하단 버튼 */
+.modal_btns {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+/* 즐겨찾기 */
+.btn_like {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--tomato);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 비교함 */
+.btn_compare {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--green);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 후기 */
+.btn_go_review {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--patty);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn_like:hover,
+.btn_compare:hover,
+.btn_go_review:hover {
+  opacity: 0.85;
+}
+
+/* 제보하기 버튼 */
+.btn_report {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--pickle);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn_report:hover {
+  opacity: 0.85;
+}
+
+/* 사이트 전체와 맞춘 메뉴 탐색 페이지 톤 */
+.page_wrap {
+  width: min(1180px, calc(100% - 48px));
+  padding: 46px 0 72px;
+
+  color: var(--ivory);
+}
+
+.pageHero {
+  min-height: 176px;
+  margin: 0 0 24px;
+  padding: 34px 38px;
+
+  border: 1px solid rgba(231, 181, 106, 0.2);
+  border-radius: var(--radius-lg);
+
+  background:
+    linear-gradient(135deg, rgba(74, 46, 36, 0.92), rgba(31, 25, 22, 0.94)),
+    linear-gradient(
+      115deg,
+      transparent 0 72%,
+      rgba(139, 195, 74, 0.12) 72% 100%
+    );
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+.pageHero span {
+  color: var(--bun);
+
+  font-family: medium;
+  font-size: 15px;
+}
+
+.pageHero h1 {
+  margin: 10px 0 12px;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+.pageHero p {
+  max-width: 640px;
+  color: rgba(255, 248, 236, 0.68);
+
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.eat_wrap {
+  gap: 24px;
+}
+
+.sidebar,
+.search_box,
+.eat_card {
+  border: 1px solid rgba(231, 181, 106, 0.14);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.16);
+}
+
+.sidebar {
+  background: rgba(23, 13, 6, 0.64);
+}
+
+.sidebar_title {
+  color: #fff8ec;
+  border-bottom-color: rgba(231, 181, 106, 0.22);
+}
+
+.category_item {
+  color: rgba(255, 248, 236, 0.72);
+}
+
+.category_item:hover {
+  background: rgba(231, 181, 106, 0.1);
+}
+
+.active_category {
+  background: var(--bun);
+  color: var(--patty);
+}
+
+.search_box {
+  padding: 18px;
+
+  border-radius: var(--radius-lg);
+
+  background: rgba(255, 248, 236, 0.045);
+}
+
+.input_box,
+.sort_select,
+.reset_btn {
+  height: 46px;
+
+  border-color: rgba(231, 181, 106, 0.18);
+
+  background: rgba(0, 0, 0, 0.18);
+  color: #fff8ec;
+}
+
+.input_box input {
+  background: transparent;
+  color: #fff8ec;
+}
+
+.input_box input::placeholder {
+  color: rgba(255, 248, 236, 0.42);
+}
+
+.sort_select option {
+  color: var(--background);
+}
+
+.reset_btn:hover {
+  border-color: rgba(231, 181, 106, 0.5);
+  color: var(--bun);
+}
+
+.eat_card {
+  background: rgba(23, 13, 6, 0.64);
+}
+
+.eat_card:hover {
+  border-color: rgba(231, 181, 106, 0.32);
+  box-shadow: 0 20px 46px rgba(0, 0, 0, 0.24);
+}
+
+.card_img_wrap {
+  background: rgba(255, 248, 236, 0.055);
+}
+
+.like_btn {
+  color: rgba(255, 248, 236, 0.36);
+}
+
+.liked {
+  color: var(--tomato);
+}
+
+.card_name {
+  color: #fff8ec;
+}
+
+.card_recent_count,
+.card_recent_none {
+  color: rgba(255, 248, 236, 0.56);
+}
+
+.pagination button {
+  border-color: rgba(231, 181, 106, 0.16);
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(255, 248, 236, 0.76);
+}
+
+.pagination button:hover:not(:disabled) {
+  background: rgba(231, 181, 106, 0.12);
+}
+
+.modal_overlay {
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(4px);
+}
+
+.modal_box {
+  width: min(950px, calc(100% - 40px));
+  height: auto;
+  max-height: calc(100vh - 80px);
+
+  border: 1px solid rgba(231, 181, 106, 0.2);
+
+  background:
+    linear-gradient(135deg, rgba(74, 46, 36, 0.96), rgba(31, 25, 22, 0.98)),
+    var(--patty);
+  color: var(--ivory);
+}
+
+.modal_close {
+  color: rgba(255, 248, 236, 0.58);
+}
+
+.modal_close:hover {
+  color: var(--bun);
+}
+
+.modal_left {
+  min-height: 440px;
+  background: rgba(255, 248, 236, 0.06);
+}
+
+.modal_name {
+  color: #fff8ec;
+}
+
+.modal_desc,
+.modal_section_title,
+.nutrition_grid div,
+.modal_update_info {
+  color: rgba(255, 248, 236, 0.68);
+}
+
+.modal_section_title {
+  border-bottom-color: rgba(231, 181, 106, 0.22);
+}
+
+.allergy_tag {
+  border-color: rgba(231, 181, 106, 0.36);
+  background: rgba(231, 181, 106, 0.12);
+  color: var(--bun);
+}
+
+@media (max-width: 900px) {
+  .page_wrap {
+    width: min(1180px, calc(100% - 28px));
+  }
+
+  .eat_wrap {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+  }
+
+  .category_list {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .category_item {
+    flex: 0 0 auto;
+  }
+
+  .main_content {
+    width: 100%;
+  }
+
+  .card_grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .modal_box {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .modal_left {
+    width: 100%;
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 560px) {
+  .pageHero {
+    padding: 26px 24px;
+  }
+
+  .pageHero h1 {
+    font-size: 34px;
+  }
+
+  .search_box {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .card_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal_btns {
+    flex-direction: column;
+  }
+}

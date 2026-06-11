@@ -1,0 +1,70 @@
+/* 담당자: 장지혁 */
+
+/* 전체 컨테이너 */
+.container {
+  width: 900px;
+  margin: 0 auto;
+  padding: 40px 0 60px 0;
+}
+
+/* 후기 수정 제목 */
+.page_title {
+  text-align: center;
+  color: var(--bun);
+  font-size: 30px;
+  font-weight: 800;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* 로딩 중 */
+.loading_wrap {
+  width: 900px;
+  margin: 0 auto;
+  padding: 60px 0;
+  text-align: center;
+  color: var(--bun);
+  font-size: 16px;
+}
+
+/* 버튼 묶음 - ComposeFrm 아래 중앙 배치 */
+.btn_wrap {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 40px;
+}
+
+/* 수정완료 버튼 */
+.btn_submit {
+  padding: 12px 24px;
+  background-color: var(--green);
+  color: var(--ivory);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.btn_submit:hover {
+  opacity: 0.85;
+}
+
+/* 취소하기 버튼 */
+.btn_cancel {
+  padding: 12px 24px;
+  background-color: var(--bun);
+  color: var(--patty);
+  border: 1px solid var(--patty);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.btn_cancel:hover {
+  opacity: 0.85;
+}

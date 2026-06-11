@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.esg.eat.dao.EatDao">
+
+    <!-- EatMapper.xml, 담당자: 장지혁 -->
+
+    <!-- 알러지 ResultMap -->
+    <resultMap id="eatResultMap" type="eat">
+        <id property="productId" column="product_id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="brandName" column="brand_name"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="price" column="price"/>
+        <result property="weight" column="weight"/>
+        <result property="kcal" column="kcal"/>
+        <result property="protein" column="protein"/>
+        <result property="sodium" column="sodium"/>
+        <result property="sugar" column="sugar"/>
+        <result property="saturatedFat" column="saturated_fat"/>
+        <result property="caffeine" column="caffeine"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="informerUserId" column="informer_user_id"/>
+        <result property="informerNickname" column="informer_nickname"/>
+
+        <!-- 알러지 리스트 -->
+        <collection property="allergies" ofType="String" column="product_id"
+                    select="selectAllergyNamesByProductId"/>
+    </resultMap>
+
+    <!-- 알러지 이름 서브쿼리 -->
+    <select id="selectAllergyNamesByProductId" resultType="String">
+        SELECT a.name
+        FROM product_allergies pa
+                 JOIN allergies a ON pa.allergy_id = a.allergy_id
+        WHERE pa.product_id = #{productId}
+    </select>
+
+    <!-- 카운트 -->
+    <select id="selectEatCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM product_items pi
+        JOIN product_brands pb ON pi.brand_id = pb.brand_id
+        WHERE pi.status = 'active'
+        <if test="brand != null and brand != ''">
+            AND pb.brand_name = #{brand}
+        </if>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            AND (REPLACE(pi.name, ' ', '') LIKE CONCAT('%', REPLACE(#{searchKeyword}, ' ', ''), '%')
+            OR REPLACE(pb.brand_name, ' ', '') LIKE CONCAT('%', REPLACE(#{searchKeyword}, ' ', ''), '%'))
+        </if>
+    </select>
+
+    <!-- 목록 조회 -->
+    <select id="selectEatList" resultMap="eatResultMap">
+        SELECT
+        pi.product_id,
+        pi.category_id,
+        pi.brand_id,
+        pb.brand_name,
+        pi.name,
+        pi.description,
+        pi.status,
+        pi.image_url,
+        pi.price,
+        pi.weight,
+        pi.kcal,
+        pi.protein,
+        pi.sodium,
+        pi.sugar,
+        pi.saturated_fat,
+        pi.caffeine,
+        pi.created_at,
+        pi.updated_at,
+        pi.informer_user_id,
+        u.login_id AS informer_nickname
+        FROM product_items pi
+        JOIN product_brands pb ON pi.brand_id = pb.brand_id
+        LEFT JOIN users u ON pi.informer_user_id = u.user_id
+        WHERE pi.status = 'active'
+        <if test="brand != null and brand != ''">
+            AND pb.brand_name = #{brand}
+        </if>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            AND (REPLACE(pi.name, ' ', '') LIKE CONCAT('%', REPLACE(#{searchKeyword}, ' ', ''), '%')
+            OR REPLACE(pb.brand_name, ' ', '') LIKE CONCAT('%', REPLACE(#{searchKeyword}, ' ', ''), '%'))
+        </if>
+        <choose>
+            <when test="order == 'name'">ORDER BY pi.name ASC</when>
+            <when test="order == 'price_asc'">ORDER BY pi.price ASC</when>
+            <when test="order == 'price_desc'">ORDER BY pi.price DESC</when>
+            <when test="order == 'kcal_asc'">ORDER BY pi.kcal ASC</when>
+            <when test="order == 'kcal_desc'">ORDER BY pi.kcal DESC</when>
+            <when test="order == 'protein_asc'">ORDER BY pi.protein ASC</when>
+            <when test="order == 'protein_desc'">ORDER BY pi.protein DESC</when>
+            <otherwise>
+                ORDER BY (
+                SELECT COUNT(g.gram_id)
+                FROM grams g
+                WHERE g.product_id = pi.product_id
+                AND g.created_at &gt;= DATE_SUB(NOW(), INTERVAL 7 DAY)
+                ) DESC, pi.product_id ASC
+            </otherwise>
+        </choose>
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- 단건 조회 -->
+    <select id="selectOneEat" resultMap="eatResultMap">
+        SELECT
+            pi.product_id,
+            pi.category_id,
+            pi.brand_id,
+            pb.brand_name,
+            pi.name,
+            pi.description,
+            pi.status,
+            pi.image_url,
+            pi.price,
+            pi.weight,
+            pi.kcal,
+            pi.protein,
+            pi.sodium,
+            pi.sugar,
+            pi.saturated_fat,
+            pi.caffeine,
+            pi.created_at,
+            pi.updated_at,
+            pi.informer_user_id,
+            u.login_id AS informer_nickname
+        FROM product_items pi
+                 JOIN product_brands pb ON pi.brand_id = pb.brand_id
+                 LEFT JOIN users u ON pi.informer_user_id = u.user_id
+        WHERE pi.product_id = #{productId}
+    </select>
+
+    <!-- 브랜드 조회 -->
+    <select id="selectBrandNames" resultType="String">
+        SELECT brand_name
+        FROM product_brands
+        ORDER BY brand_id ASC
+    </select>
+
+    <!-- 제보 등록 -->
+    <insert id="insertSuggestion">
+        INSERT INTO product_suggestions (user_id, product_id, user_note, status, created_at)
+        VALUES (#{userId}, #{productId}, #{userNote}, 'pending', CONVERT_TZ(NOW(), '+00:00', '+09:00'))
+    </insert>
+
+    <!--마이페이지에서 제보 내용 구현하기(김경호)-->
+    <select id="selectMySuggestions" resultType="map">
+        SELECT
+            ps.suggestion_id,
+            ps.user_id,
+            ps.product_id,
+            p.name AS product_name, -- product_items 테이블의 name을 product_name으로 가져옴
+            ps.user_note,
+            ps.status,
+            DATE_FORMAT(ps.created_at, '%Y-%m-%d') AS created_at
+        FROM product_suggestions ps
+                 JOIN product_items p ON ps.product_id = p.product_id
+        WHERE ps.user_id = #{userId}
+        ORDER BY ps.created_at DESC
+    </select>
+</mapper>

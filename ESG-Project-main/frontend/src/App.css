@@ -1,0 +1,105 @@
+/*ESG 프로젝트 전역 CSS 초기화 셋팅값*/
+/*프로젝트 내에 모든 컴포넌트 및 페이지들은 전역 CSS가 우선 적용됩니다.*/
+/*변경하고 싶은 CSS는각자 MODULE.css 덮어씌어주세요.*/
+
+/*ESG Color Branding*/
+:root {
+  --bun: #e7b56a; /* 토스트번 */
+  --green: #8bc34a; /* 양상추 */
+  --tomato: #ff5a4f; /* 토마토 */
+  --patty: #4a2e24; /* 패티 */
+  --background: #2a2522; /* 텍스트 */
+  --ivory: #fff8ec; /* 배경 */
+  --pickle: #7ed6a5; /* 피클 */
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/*공통*/
+html {
+  scrollbar-gutter: stable;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: light;
+}
+/*BODY 초기화*/
+body {
+  background-color: var(--background);
+  color: var(--ivory);
+  line-height: 1.4; /*줄간격*/
+  -webkit-tap-highlight-color: transparent; /*모바일 파란배경 제거*/
+}
+/* 리스트 스타일 제거 */
+ul,
+ol {
+  list-style: none;
+}
+/* 이미지 반응형 */
+img {
+  max-width: 100%;
+  display: block;
+}
+/* 링크 초기화 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+/*버튼 초기화*/
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+}
+/*INPUT 초기화*/
+input,
+textarea,
+select {
+  font: inherit;
+  outline: none;
+  border: none;
+}
+
+/* SweetAlert2 공통 테마: 페이지 전체와 같은 버거 톤으로 통일 */
+.swal2-popup {
+  border: 1px solid rgba(231, 181, 106, 0.24) !important;
+  border-radius: var(--radius-lg) !important;
+  background:
+    linear-gradient(180deg, rgba(74, 46, 36, 0.98), rgba(31, 25, 22, 0.98)),
+    var(--patty) !important;
+  color: var(--ivory) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32) !important;
+}
+
+.swal2-title {
+  color: #fff8ec !important;
+  font-family: bold;
+}
+
+.swal2-html-container,
+.swal2-content {
+  color: rgba(255, 248, 236, 0.74) !important;
+}
+
+.swal2-confirm {
+  border-radius: var(--radius-md) !important;
+  background: var(--bun) !important;
+  color: var(--patty) !important;
+  font-family: bold;
+}
+
+.swal2-cancel {
+  border-radius: var(--radius-md) !important;
+  background: rgba(255, 90, 79, 0.2) !important;
+  color: #ffb0aa !important;
+  font-family: bold;
+}
+
+.swal2-image {
+  object-fit: contain;
+}

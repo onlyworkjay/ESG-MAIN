@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.esg.master.dao.MasterDao">
+    <insert id="insertBrand">
+        insert into product_brands(brand_name,description) values (#{brandName},#{description})
+    </insert>
+    <select id="getBrandList" resultType="mBrand">
+        select brand_name,description,(select count(*) from product_items pi where pi.brand_id=pd.brand_id ) as item_count from product_brands pd
+    </select>
+    <delete id="deleteBrand">
+        delete from product_brands where brand_name = #{brandName}
+    </delete>
+    <select id="getPw" resultType="String">
+        select password from users where login_id = #{loginId}
+    </select>
+    <select id="checkId" resultType="int">
+        select count(*) from users where login_id = #{loginId}
+    </select>
+    <insert id="createAdmin">
+        insert into users(login_id,
+                          password,
+                          nickname,
+                          email,
+                          status,
+                          role,
+                          created_at,
+                          profile_img)
+        values(#{loginId},#{password},#{nickname},#{email},'active','admin',now(),'/profile_images/default_profile_image.png')
+    </insert>
+    <select id="selectAdmins" resultType="adminDto">
+        select login_id, nickname,email,status,created_at from users where role = 'admin' order by user_id desc
+    </select>
+    <update id="adminSuspend">
+        update users set status='suspended',suspension_reason=#{suspensionReason},updated_at=now()  where login_id = #{loginId}
+    </update>
+    <update id="restoreStatus">
+        update users set status='active',suspension_reason=null,updated_at= now() where login_id= #{loginId}
+    </update>
+    <update id="patchBrand">
+        update product_brands set description=#{description} where brand_name=#{brandName}
+    </update>
+    <select id="emailDupliCheck" resultType="java.lang.Integer">
+        select count(*) from users where email=#{email}
+    </select>
+    <select id="nicknameDupCheck" resultType="java.lang.Integer">
+        select count(*) from users where nickname=#{nickname}
+    </select>
+
+</mapper>

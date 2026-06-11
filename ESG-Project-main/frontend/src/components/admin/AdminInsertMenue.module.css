@@ -1,0 +1,155 @@
+/* ====================================================
+   AdminInsertMenue.module.css
+   ==================================================== */
+
+/* ── 전체 래퍼 ── */
+.menue_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 860px;
+}
+
+/* ── 페이지 타이틀 ── */
+.menue_wrap > h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.95;
+  width: 200px;
+}
+
+/* ── 공통 섹션 카드 ── */
+.menue_category,
+.other_information,
+.menue_wrap > div:has(#allergy),   /* 알러지 영역 */
+.insert_menue_img {
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  padding: 20px 24px;
+  opacity: 0.9;
+}
+
+/* ── 카테고리/브랜드 select 행 ── */
+.menue_category {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.menue_category > h4 {
+  align-self: center;
+  padding-right: 20px;
+}
+
+.menue_category select {
+  padding: 8px 14px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  outline: none;
+  opacity: 0.8;
+  color-scheme: dark;
+}
+select option {
+  background: #1e1e1e; /* 어드민 사이드바 배경색과 동일 */
+  color: #ffffff;
+}
+
+.menue_category select:focus {
+  opacity: 1;
+}
+
+/* ── 영양정보 폼: 2열 라벨 + 입력 그리드 ── */
+.other_information {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 14px 20px;
+  align-items: center;
+}
+
+.other_information label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+  justify-self: end; /* 오른쪽 정렬 */
+}
+
+.other_information input,
+.other_information textarea {
+  padding: 9px 14px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  outline: none;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.other_information input:focus,
+.other_information textarea:focus {
+  opacity: 1;
+}
+
+/* textarea는 2행 높이 */
+.other_information textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* ── 이미지 미리보기 ── */
+.insert_menue_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.insert_menue_img img {
+  max-width: 100%;
+  max-height: 280px;
+  border-radius: 8px;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+/* 파일 input 영역 */
+.menue_wrap > div:has(input[type="file"]) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menue_wrap > div:has(input[type="file"]) input {
+  font-size: 0.82rem;
+  opacity: 0.7;
+}
+
+/* ── 등록 버튼 ── */
+.insert_menue_button {
+  align-self: center;
+  padding: 10px 32px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.insert_menue_button:hover {
+  opacity: 1;
+}

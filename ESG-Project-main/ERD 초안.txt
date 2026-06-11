@@ -1,0 +1,226 @@
+users				--1.회원테이블
+user_id			number				PK					--회원 식별자 sequence로 자동증가 (관리자 페이지에 필요)
+login_id            		varchar2(50)    			UNIQUE NOT NULL		--아이디(로그인 식별자)
+password            	char2(60)				NOT NULL        			--비밀번호
+nickname            	varchar2(50)       			UNIQUE NOT NULL		--닉네임(한글6자까지)
+email               		varchar2(100) 			UNIQUE    				--이메일 (NULL 허용)
+status              		varchar2(30)    			default 'active' NOT NULL	--상태(active/suspended/deleted)
+role                		varchar2(30)   			default 'user' NOT NULL	--권한(user/admin/master)
+suspension_reason  	varchar2(500)								--정지사유 (정지상태일 경우 로그인시 메시지 출력용) (NULL 허용)
+created_at		        date				        default sysdate NOT NULL	--가입일 
+updated_at         	date                        							--수정일 (NULL 허용)
+deleted_at         		date										--탈퇴일 (NULL 허용)
+profile_img			varchar2(500)			default 'profile.png' NOT NULL	--프로필 썸네일
+
+user_favorites		--1-1. 회원 즐겨찾기
+user_id			number				FK NOT NULL			--로그인 한 회원
+target_user_id  		number				FK NOT NULL			--해당 유저 아이디
+created_at      		sysdate				default sysdate NOT NULL	--즐겨찾기 생성일
+description             	varchar2(1000)								--즐겨찾기 목록에 저장할 설명 (NULL 허용)
+PRIMARY KEY(user_id, target_user_id)								--즐겨찾기 중복방지 제약조건
+
+user_reports		--1-2. 회원 신고
+report_id			number				PK					--회원신고 식별자 sequence로 자동증가
+user_id			number				FK NOT NULL			--로그인 한 회원
+target_user_id		number				FK NOT NULL			--신고 대상 회원
+reason			varchar2(1000)			NOT NULL 				--신고 사유
+status				varchar2(30)			default 'pending' NOT NULL	--상태 pending(접수됨)	 rejected (반려) resolved (처리완료)
+created_at			date					default sysdate NOT NULL	--회원신고 작성일
+completed_at		date										--관리자 처리 완료일 (NULL 허용)
+admin_note		varchar2(1000)								--관리자 처리 완료 메시지(마이페이지, 관리자용 페이지용) (NULL 허용)
+processed_by		number				FK					--처리한 관리자 (관리기록 저장을 위해 필요) (NULL 허용)
+CHECK (user_id <> target_user_id)									--자기자신을 신고하지 못하게 체크
+
+grams			--2.후기게시판
+gram_id			number				PK					--후기 게시글 식별자 sequence로 자동증가
+choice_id 		  	number 	     			FK NOT NULL			--선택번호(choice 테이블) 글작성 조건이 choice_id가 존재해야하기 때문에 필요
+user_id        		number      			FK NOT NULL			--작성자아이디(로그인)
+product_id			number				FK NOT NULL			--상품 아이디
+title               		varchar2(100)  			NOT NULL 				--제목
+content         		varchar2(4000)  			NOT NULL 				--내용
+status              		varchar2(30)    			default 'active' NOT NULL	--상태(active:정상(기본값) expired:게시기간만료 deleted:작성자삭제 hidden:관리자숨김)
+created_at        		date            			default sysdate NOT NULL	--작성일
+updated_at          	date     							                --수정일 (NULL 허용)
+deleted_at          	date                       							--삭제일 (NULL 허용)
+
+gram_likes			--2-1.후기게시판 좋아요 (좋아요는 단순 생성/삭제 토글방식)
+user_id			number				FK NOT NULL			--로그인 한 회원
+gram_id         		number				FK NOT NULL			--후기글번호
+created_at			date					default sysdate NOT NULL	--좋아요 작성일 (언제 좋아요 눌렀는지 표시용)
+PRIMARY KEY(user_id, gram_id)									--좋아요 중복방지 제약조건 
+
+gram_reports		--2-2.후기게시판 신고
+report_id			number				PK					--후기게시글 신고 식별자 sequence로 자동증가
+user_id     			number				FK NOT NULL			--로그인 한 회원
+gram_id			number				FK NOT NULL			--후기글 번호
+reason			varchar2(1000)			NOT NULL 				--신고 사유
+status				varchar2(30)			default 'pending' NOT NULL	--상태 pending(접수됨)	 rejected (반려) resolved (처리완료)
+created_at      		date					default sysdate NOT NULL	--신고 작성일
+completed_at		date										--관리자 처리 완료일 (NULL 허용)
+admin_note		varchar2(1000)								--관리자 처리 완료 메시지(마이페이지, 관리자용 페이지용) (NULL 허용)
+processed_by		number				FK					--처리한 관리자 (관리기록 저장을 위해 필요) (NULL 허용)
+UNIQUE(user_id, gram_id)										--후기신고 중복방지 제약조건
+
+gram_files			--2-3.후기게시판 파일
+gram_file_no		number				PK					--후기게시판 파일 식별자 sequence로 자동증가
+file_name			varchar2(300)			NOT NULL				--파일이름 (서버에서 UUID 처리)
+file_path			varchar2(300)			NOT NULL				--파일경로 (서버에서 UUID.확장자 로 처리)
+gram_id			number				FK NOT NULL			--후기게시글 아이디
+
+posts				--3.일반게시판(일반+공지)
+post_id			number				PK					--일반 게시글 식별자 sequence로 자동증가
+is_notice			number				default 0 NOT NULL		--공지사항여부(0:일반(기본값) 1:공지)
+user_id		        number     				FK NOT NULL		        --작성자아이디(로그인)
+title              		varchar2(100)			NOT NULL         			--제목
+content        		varchar2(4000)  			NOT NULL         			--내용
+status              		varchar2(30)   			default 'active' NOT NULL	--상태(active:정상(기본값) user_deleted:작성자삭제 admin_hidden:관리자숨김)
+created_at          		date            			default sysdate NOT NULL	--작성일
+updated_at          	date                        							--수정일 (NULL 허용)
+deleted_at          	date                        							--삭제일 (NULL 허용)
+
+post_likes			--3-1.일반게시판 좋아요 (좋아요는 단순 생성/삭제 토글방식)
+user_id			number				FK NOT NULL			--로그인 한 회원
+post_id			number				FK NOT NULL			--게시글 번호
+created_at                  date					default sysdate NOT NULL	--좋아요 작성일 (언제 좋아요 눌렀는지 표시용)
+PRIMARY KEY(user_id, post_id)									--좋아요 중복방지 제약조건
+
+post_reports    		--3-2.일반게시판 신고
+report_id              	number				PK					--일반게시글 신고 식별자 sequence로 자동증가
+user_id			number				FK NOT NULL			--로그인 한 회원
+post_id     			number				FK NOT NULL 			--게시글 번호
+reason			varchar2(1000)			NOT NULL 				--신고사유
+status				varchar2(30)			default 'pending' NOT NULL	--상태 pending(접수됨)	 rejected (반려) resolved (처리완료)
+created_at			date					default sysdate NOT NULL	--작성일
+completed_at		date										--관리자 처리 완료일 (NULL 허용)
+admin_note		varchar2(1000)								--관리자 처리 완료 메시지(마이페이지, 관리자용 페이지용) (NULL 허용)
+processed_by		number				FK					--처리한 관리자 (관리기록 저장을 위해 필요) (NULL 허용)
+UNIQUE(user_id, post_id)										--게시글신고 중복방지 제약조건
+
+post_files			--3-3.일반게시판 파일
+post_file_no		number				PK					--일반게시판 파일 식별자 sequence로 자동증가
+file_name			varchar2(300)			NOT NULL				--파일이름 (서버에서 UUID 처리)
+file_path			varchar2(300)			NOT NULL				--파일경로 (서버에서 UUID.확장자 로 처리)
+post_id			number				FK NOT NULL			--일반게시글 아이디
+
+choices     			--4.선택기록 (최종 선택한 상품)
+choice_id           		number				PK					--선택기록 식별자 sequence로 자동증가
+user_id         		number				FK NOT NULL			--로그인 한 회원
+product_id        		number				FK NOT NULL			--선택한 상품
+gram_written		number				default 0 NOT NULL	--후기 작성여부 (0:미작성 1:작성)
+created_at			date					default sysdate NOT NULL	--선택기록 작성일
+expires_at			date										--선택기록 생성 이후 후기게시글을 작성할수있는 기간 (현재 프로젝트 설정 2시간 이내 작성->이후 작성불가)
+
+choice_items		--4-1.비교기록 저장 (1:N 연결) (비교함에 담았던 상품)
+choice_item_id		number				PK					--비교기록 식별자 sequence로 자동증가
+choice_id 			number				FK NOT NULL			--선택기록
+product_id			number				FK NOT NULL			--상품아이디
+is_selected         		number				CHECK 0,1				--선택여부(0:미선택 1:선택) 
+display_order       	number				NOT NULL				--정렬순서(비교함에 담은순서)
+
+예시	choice_id	product_id		is_selected		display_order
+	1		와퍼			1선택			1
+	1		빅맥			0미선택		2
+	1		상하이버거		0미선택		3
+
+product_items		--5.상품(메뉴)
+product_id			number				PK					--상품(메뉴) 식별자 sequence로 자동증가
+category_id			number				FK NOT NULL			--상품 카테고리 햄버거, 햄버거, 피자, 치킨 등등...
+brand_id			number				FK NOT NULL			--상품 브랜드 맥도날드, 버거킹 등등등...
+name				varchar2(50)			NOT NULL				--상품 이름 (맥도날드-치즈버거, 버거킹-치즈버거) 상품이름이 같을수 있어서 UNIQUE 두지 않음
+description			varchar2(1000)			NOT NULL				--상품 설명
+status				varchar2(30)			default 'active' NOT NULL	--상품상태 (active 정상 / discontinued 단종/ hidden 숨김)
+image_url			varchar2(500)			NOT NULL				--상품URL
+price       			number				NOT NULL				--가격
+weight			number				NOT NULL				--중량(g,ml)
+kcal        			number				NOT NULL				--열량(kcal)
+protein		   	number				NOT NULL				--단백질(g)
+sodium			number				NOT NULL				--나트륨(mg)
+sugar				DECIMAL(6,2)			NOT NULL				--당(g)
+saturated_fat		DECIMAL(6,2)			NOT NULL				--포화지방(g)
+caffeine			number				default 0 NOT NULL		--카페인(mg)
+created_at			date					default sysdate NOT NULL	--작성일
+updated_at			date										--업데이트날짜 (NULL 허용)
+informer_user_id		number				FK 					--정보제공자 (NULL 허용)
+UNIQUE(brand_id, name)										--상품등록 중복방지 제약조건
+
+product_categories	--5-1.상품 카테고리
+category_id			number				PK					--카테고리 식별자 sequence로 자동증가
+category_name		varchar2(50)			UNIQUE NOT NULL		--카테고리 이름 햄버거 햄버거셋트 피자 치킨 사이드 디저트 등등등....
+
+product_brands		--5-2.상품 브랜드
+brand_id			number				PK					--브랜드 식별자 sequence로 자동 증가
+brand_name		varchar2(50)			UNIQUE NOT NULL		--브랜드 이름 맥도날드, 버거킹 등등등...
+description			varchar2(500)			NOT NULL				--브랜드 설명
+
+카테고리와 브랜드의 분리 이유: 맘스터치는 치킨인가 햄버거인가?
+추가 확장성을 고려해 상품메뉴가 1개의 카테고리와 1개의 브랜드를 가져갈수 있도록 하자!
+
+햄버거와 햄버거 셋트는 어떻게 분류 하는가?
+우선 카테고리를 햄버거, 햄버거 셋트로 분류
+
+product_favorites		--5-3. 상품 즐겨찾기
+user_id			number				FK NOT NULL			--로그인 한 회원
+product_id			number				FK NOT NULL			--상품 아이디
+created_at			date					default sysdate NOT NULL	--즐겨찾기 생성일
+description             	varchar2(1000)				 				--즐겨찾기 목록에 저장할 설명 (NULL 허용)
+PRIMARY KEY(user_id, product_id)
+
+allergies			--6.알레르기 (알레르기정보 테이블)
+allergy_id			number				PK					--알레르기 식별자 sequence로 자동증가
+name			        varchar2(50)			UNIQUE NOT NULL  		--알레르기종류 밀, 대두, 토마토 등등
+
+product_allergies 	-- 6-1.메뉴와 알레르기를 연결할 테이블 (1:N) 관리자가 알레르기 등록할때 사용할 테이블
+product_allergy_id	number				PK					--상품알레르기 식별자 sequence로 자동증가 (관리자가 알레르기 정보를 추가 삭제하기 위해 필요)
+product_id 			number				FK NOT NULL			--상품(메뉴)
+allergy_id 			number				FK NOT NULL			--알레르기
+UNIQUE(product_id, allergy_id)									--알레르기등록 중복방지 제약조건
+
+예시) 빅맥에 알레르기 밀가루 토마토 오이를 등록할 때
+	product_id		allergy_id
+	1(빅맥)		22(밀가루)
+	1(빅맥)		26(토마토)
+	1(빅맥)		32(오이)
+
+product_suggestions	--7.상품제보 (회원이 페이지 사용중 상품 정보의 차이가 있을때 제보하는 기능을 담당)
+suggestion_id		number				PK					--상품제보 식별자 sequence로 자동증가
+user_id			number				FK NOT NULL			--로그인 한 회원
+product_id			number				FK NOT NULL			--상품 번호
+user_note			varchar2(1000)			NOT NULL				--유저 제보내용
+status				varchar2(30)			default 'pending' NOT NULL	--pending(접수됨) rejected (반려) resolved (처리완료)
+created_at			date					default sysdate NOT NULL	--상품제보 작성일
+completed_at		date										--관리자 처리완료일  (NULL 허용)
+admin_note		varchar2(1000)								--관리자 처리완료메시지 (NULL 허용)
+processed_by		number				FK					--처리한 관리자 (관리기록 저장을 위해 필요) (NULL 허용)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+comments			--10.댓글 테이블 추후구현
+comment_id		number				PK					--댓글 식별자 sequence로 자동증가
+gram_id			number				NOT NULL  		     	--게시글 아이디
+user_id			number				FK					--작성자(로그인한유저)
+parent_id         		number				FK					--대댓글시에 필요한 부모댓글 ID, 부모댓글이 없을시 NULL
+depth             		number				default 0 NOT NULL		--원본댓글 : 0 대댓글 : 1	->	댓글작성시 depth가 1일 경우 댓글달지 못하게 예외처리
+status				varchar2(30)			default 'active' NOT NULL	--상태(active:정상(기본값) user_deleted:작성자삭제 admin_hidden:관리자숨김)
+content			varchar2(500)			NOT NULL				--댓글내용
+created_at			date					default sysdate NOT NULL	--생성일 
+updated_at			date										--수정일 (NULL 허용)
+deleted_at			date										--삭제일 (NULL 허용)

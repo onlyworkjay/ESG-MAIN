@@ -1,0 +1,12 @@
+﻿/*CreateAdmin*/
+.createAdmin_form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.correct_pw {
+  color: var(--green);
+}
+.wrong_pw {
+  color: var(--tomato);
+}

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.esg.admin.dao.AdminDao">
+    <select id="getAllergyType" resultType="allergy">
+        select * from allergies order by allergy_id
+    </select>
+    <select id="getBrandType" resultType="aBrand">
+        select * from product_brands order by brand_id
+    </select>
+    <select id="getMemberRole" resultType="String">
+        select role from users where login_id = #{loginId}
+    </select>
+    <insert id="insertMenue">
+        insert into product_items(
+            category_id,
+            brand_id,
+            name,
+            description,
+            status,
+            image_url,
+            price,
+            weight,
+            kcal,
+            protein,
+            sodium,
+            sugar,
+            saturated_fat,
+            caffeine,
+            created_at,
+            informer_user_id) values (
+            #{categoryId},
+            #{brandId},
+            #{name},
+            #{description},
+            #{status},
+            #{imageUrl},
+            #{price},
+            #{weight},
+            #{kcal},
+            #{protein},
+            #{sodium},
+            #{sugar},
+            #{saturatedFat},
+            #{caffeine},
+            now(),
+            #{informerUserId}
+
+            )
+    </insert>
+    <select id="getProductId" resultType="integer">
+        select product_id from product_items where image_url = #{imageUrl}
+    </select>
+    <insert id="insertAllergies">
+        insert into product_allergies(
+            product_id,allergy_id
+        )
+        values(#{productId},#{allergyId})
+    </insert>
+    <select id="selectUsers" resultType="users">
+        select user_id,login_id,password,nickname,email,status,suspension_reason,created_at,updated_at,deleted_at from users
+        <where>
+            role = 'user'
+            <if test="searchMember != null and searchMember != '' and searchFilter==1" >
+                and login_id like  concat('%', #{searchMember}, '%')
+            </if>
+            <if test="searchMember != null and searchMember != '' and searchFilter==2">
+                and nickname like  concat('%', #{searchMember}, '%')
+            </if>
+            <if test="userFilter == 1">
+                and status = 'active'
+            </if>
+            <if test="userFilter == 2">
+                and status = 'suspended'
+            </if>
+            <if test="userFilter == 3">
+                and status = 'deleted'
+            </if>
+        </where>
+        <if test="orderBy == 1">
+            order by created_at asc
+        </if>
+        <if test="orderBy ==2">
+            order by created_at desc
+        </if>
+        limit #{size} offset #{offset}
+    </select>
+    <select id="userCount" resultType="double">
+        select count(*) from users
+        <where>
+            role = 'user'
+            <if test="searchMember != null and searchMember != '' and searchFilter==1" >
+                and login_id like  concat('%', #{searchMember}, '%')
+            </if>
+            <if test="searchMember != null and searchMember != '' and searchFilter==2">
+                and login_id like  concat('%', #{searchMember}, '%')
+            </if>
+            <if test="userFilter == 1">
+                and status = 'active'
+            </if>
+            <if test="userFilter == 2">
+                and status = 'suspended'
+            </if>
+            <if test="userFilter == 3">
+                and status = 'deleted'
+            </if>
+        </where>
+    </select>
+    <select id="getMenueList" resultType="menue">
+        select product_id,name,brand_name,status,created_at from product_items pi join product_brands pb on pi.brand_id = pb.brand_id
+        <where>
+            category_id = 1
+            <if test="searchMenue != null and searchMenue != '' and searchFilter == 1">
+                and name like concat('%',#{searchMenue},'%')
+            </if>
+<!--            <if test="searchMenue != null and searchMenue != '' and searchFilter == 2">-->
+<!--                and brand_name like concat('%',#{searchMenue},'%')-->
+<!--            </if>-->
+            <if test="brandId != 0">
+                and pb.brand_id = #{brandId}
+            </if>
+            <if test="status != null and  status != 'all'  ">/* all 부분 정상으로 동작 한다고 함 + where 안에는 as 못씀*/
+                and status = #{status}
+            </if>
+        </where>
+        <if test="createdAt != null and createdAt == 'createdDesc'">
+            order by created_at desc
+        </if>
+        <if test="createdAt != null and createdAt == 'createdAsc'">
+            order by created_at asc
+        </if>
+        limit 10 offset #{offSet}
+    </select>
+    <select id="menueCount" resultType="double">
+        select count(*) from product_items pi join product_brands pb on pi.brand_id = pb.brand_id
+        <where>
+            category_id = 1
+            <if test="searchMenue != null and searchMenue != '' and searchFilter == 1">
+                and name like concat('%',#{searchMenue},'%')
+            </if>
+            <!--            <if test="searchMenue != null and searchMenue != '' and searchFilter == 2">-->
+            <!--                and brand_name like concat('%',#{searchMenue},'%')-->
+            <!--            </if>-->
+            <if test="brandId != 0">
+                and pb.brand_id = #{brandId}
+            </if>
+            <if test="status != null and  status != 'all'  ">/* all 부분 정상으로 동작 한다고 함 + where 안에는 as 못씀*/
+                and status = #{status}
+            </if>
+        </where>
+        <if test="createdAt != null and createdAt == 'createdDesc'">
+            order by created_at desc
+        </if>
+        <if test="createdAt != null and createdAt == 'createdAsc'">
+            order by created_at asc
+        </if>
+    </select>
+    <select id="getMenueDetail" resultMap="resultMapper">
+        select a.name as allergy_name,
+               pa.allergy_id,
+               product_allergy_id,
+               brand_name,
+               pi.product_id,
+               category_id,
+               pi.brand_id,
+               pi.name ,
+               pi.description,
+               status,
+               image_url,
+               price,
+               weight,
+               kcal,
+               protein,
+               sodium,
+               sugar,
+               saturated_fat,
+               caffeine,
+               created_at,
+               updated_at,
+               informer_user_id
+        from product_items pi join product_allergies pa on pa.product_id=pi.product_id
+                              join allergies a on a.allergy_id = pa.allergy_id
+                              join product_brands pb on pb.brand_id = pi.brand_id
+        where pa.product_id = #{productId}
+    </select>
+    <resultMap id="resultMapper" type="menuedto"><!-- select의 resultmap(조건)-->
+        <id property="productId" column="product_id"></id><!--product_id 부분의 경우는 현재 결과값의 객체 부분이 같을 경우, 서로 같은 걸로 보고 묶는다(같으면 여러 객체로 만들지 않는다)-->
+        <result property="brandName" column="brand_name"></result><!--이제 menueddto에 차례대로 매핑해 넣음-->
+        <result property="productId" column="product_id"></result>
+        <result property="categoryId" column="category_id"></result>
+        <result property="brandId" column="brand_Id"></result>
+        <result property="name" column="name"></result>
+        <result property="description" column="description"></result>
+        <result property="status" column="status"></result>
+        <result property="imageUrl" column="image_url"></result>
+        <result property="price" column="price"></result>
+        <result property="weight" column="weight"></result>
+        <result property="kcal" column="kcal"></result>
+        <result property="protein" column="protein"></result>
+        <result property="sodium" column="sodium"></result>
+        <result property="sugar" column="sugar"></result>
+        <result property="saturatedFat" column="saturated_fat"></result>
+        <result property="caffeine" column="caffeine"></result>
+        <result property="createdAt" column="created_at"></result>
+        <result property="updatedAt" column="updated_at"></result>
+        <result property="informerUserId" column="informer_user_id"></result>
+        <collection property="allergies" ofType="allergydto"><!--allergy 부분만 객체로 구분(menuedto에 allergyDto 타입의 객체로 만들어놓음)현재는 오류방지 위해 존재-->
+            <id property="allergyId" column="allergy_id"></id> <!--매핑과 식별 둘다 함(result 작성 미필요)-->
+<!--            <result property="allergyId" column="allergy_id"></result>-->
+            <result property="allergyName" column="allergy_name"></result>
+            <result property="productAllergyId" column="product_allergy_id"></result>
+        </collection>
+    </resultMap>
+    <select id="getAllergyById" resultType="allergydto">
+        select product_allergy_id,allergy_id from product_allergies where product_id=#{productId}
+    </select>
+    <update id="updateMenue">
+        update product_items <set>
+                                description=#{description},status=#{status},price=#{price},weight=#{weight},kcal=#{kcal},protein=#{protein},sodium=#{sodium},sugar=#{sugar},saturated_fat=#{saturatedFat},caffeine=#{caffeine},informer_user_id=#{informerUserId},
+                                <if test='!imageUrl != "" || imageUrl != null'>
+                                    image_url = #{imageUrl},
+                                </if>
+                                updated_at = now()
+                             </set>
+                            where product_id=#{productId}
+    </update>
+    <insert id="insertAllergy">
+        insert into product_allergies(allergy_id,product_id) values(#{allergyId},#{productId})
+    </insert>
+<!--    <update id="updateAllergy">-->
+<!--        update product_allergies set allergy_id=#{allergyId} where product_allergy_id=#{productAllergyId}-->
+<!--    </update>-->
+    <delete id="deleteByAllergyId">
+        delete from product_allergies where allergy_id = #{allergyId} and product_id=#{productId}
+    </delete>
+    <select id="getImageUrlDB" resultType="String">
+        select image_url from product_items where product_id = #{productId}
+    </select>
+    <select id="getMemberDetail" resultType="users">
+        select login_id,nickname,email,status,suspension_reason,created_at,updated_at,deleted_at,profile_img from users where user_id=#{userId}
+    </select>
+<!--   users  테이블 값 변경-->
+    <update id="banUsersTbl">
+        update users set status='suspended', suspension_reason=#{suspensionReason}, updated_at = now() where user_id = #{userId}
+    </update>
+<!--    user_reports값 테이블 변경-->
+    <update id="banUserReports">
+        update user_reports set processed_by = #{processedBy},completed_at = now(), status = "resolved" ,admin_note = #{adminNote} where report_id=#{reportId}
+    </update>
+<!--    user_suspension값 삽입-->
+    <insert id="banUserSuspension">
+        insert into user_suspension(report_id,target_user_id,end_date) values(#{reportId},#{targetUserId},DATE_ADD(#{endDate}, INTERVAL 1 DAY))
+    </insert>
+
+    <select id="getReportList" resultType="report">
+        select report_id,ps.user_id,ps.post_id as target_id,reason,ps.status,ps.created_at,completed_at,admin_note,processed_by, 'post' as report_type, title as title_name ,(select login_id from users u1 where u1.user_id=ps.user_id) as login_id  from post_reports ps join posts p on ps.post_id=p.post_id
+            <if test="status != null and status != ''">
+                where ps.status=#{status}
+            </if>
+        union all
+        select report_id,ur.user_id,target_user_id as target_id,reason,ur.status,ur.created_at,completed_at,admin_note,processed_by,'user' as report_type,login_id as title_name,(select login_id from users u1 where u1.user_id = ur.target_user_id) as login_id  from user_reports ur join users u on u.user_id=ur.user_id
+            <if test="status != null and status != ''">
+            where ur.status=#{status}
+            </if>
+        union all
+        select report_id,gr.user_id,gr.gram_id as target_id,reason,gr.status,gr.created_at,completed_at,admin_note,processed_by, 'gram' as report_type,title as title_name, (select login_id from users u1 where u1.user_id=gr.user_id) as login_id from gram_reports gr join grams g on g.gram_id=gr.gram_id
+            <if test="status != null and status != ''">
+            where gr.status=#{status}
+            </if>
+        order by created_at desc limit 5 offset #{offset}
+    </select>
+    <select id="getReportTotalPage" resultType="int">
+        select sum(cnt) from(
+            select count(*) as cnt from post_reports
+            <if test="status != null and status != ''">
+                where status=#{status}
+            </if>
+            union all
+            select count(*) as cnt  from user_reports
+            <if test="status != null and status != ''">
+                where status=#{status}
+            </if>
+            union all
+            select count(*) as cnt from gram_reports
+            <if test="status != null and status != ''">
+                where status=#{status}
+            </if>
+        )    as reports
+    </select>
+<!--    스케줄러 정보 가져오는 구문-->
+<!--    CDATA:Character DATA" 의 약자로, XML에게 "이 안에 있는 내용은 XML로 해석하지 말고 그냥 문자열로 봐라" 라고 선언하는 구문입니다.
+-->
+    <select id="getSuspendedList" resultType="suspend">
+        select target_user_id, end_date,report_id from user_suspension us join users u on us.target_user_id=u.user_id where end_date <![CDATA[<=]]> now() and status='suspended'
+    </select>
+
+    <!--    회원 정지 해제(스케줄러)-->
+    <update id="restoreStatus">
+        update users set status='active', suspension_reason = null, updated_at = now() where user_id=#{userId}
+    </update>
+<!--    user_report 동일 문제 반려처리-->
+    <update id="clearReportsForDuplicates">
+        update user_reports set status='rejected',admin_note=#{adminNote}, completed_at = now(),processed_by=#{processedBy} where report_id != #{reportId} and target_user_id = #{targetUserId} and status = 'pending'
+    </update>
+<!--    posts 의 숨김-->
+    <update id="hidePostPosts">
+        update posts set status='hidden',updated_at =now() where post_id=#{postId}
+    </update>
+<!--    post_report 처리-->
+    <update id="hidePostPostReport">
+        update post_reports set status='resolved',completed_at=now(),processed_by=#{processedBy},admin_note=#{adminNote} where report_id = #{reportId}
+    </update>
+    <update id="clearPostReport">
+        update post_reports set status='rejected',completed_at=now(),processed_by=#{processedBy},admin_note=#{adminNote} where report_id != #{reportId} and post_id=#{postId} and status='pending'
+    </update>
+    <update id="hideGramGrams">
+        update grams set status = 'hidden',updated_at =now() where gram_id = #{gramId}
+    </update>
+    <update id="hideGramGramReports">
+        update gram_reports set status = 'resolved',completed_at =now(),admin_note=#{adminNote},processed_by=#{processedBy} where report_id=#{reportId}
+    </update>
+    <update id="clearGramReports">
+        update gram_reports set status='rejected',completed_at =now(), admin_note=#{adminNote},processed_by=#{processedBy} where report_id!=#{reportId} and gram_id =#{gramId} and status ='pending'
+    </update>
+    <update id="denyPostReport">
+        update post_reports set status='rejected',completed_at =now(), admin_note=#{adminNote},processed_by=#{processedBy} where post_id =#{postId} and status='pending'
+    </update>
+    <update id="denyGramReport">
+        update gram_reports set status='rejected',completed_at =now(), admin_note=#{adminNote},processed_by=#{processedBy} where gram_id =#{gramId} and status='pending'
+    </update>
+    <update id="denyUserReport">
+        update user_reports set status='rejected',completed_at =now(), admin_note=#{adminNote},processed_by=#{processedBy} where target_user_id =#{targetUserId} and status='pending'
+    </update>
+
+    <select id="getWholeMember" resultType="int">
+        select count(*) from users;
+    </select>
+    <select id="countActiveUser" resultType="int">
+        select count(*) from users where status='active' and DATE_ADD(created_at,interval 1 month) <![CDATA[>]]> now()
+    </select>
+    <select id="countDeletedUser" resultType="int">
+        select count(*) from users where status='deleted' and Date_ADD(deleted_at,interval 1 month) <![CDATA[>]]> now()
+    </select>
+    <select id="countPendingReports" resultType="int">
+        select sum(cnt) from(
+        select count(*) as cnt from post_reports
+            where status ='pending'
+        union all
+        select count(*) as cnt  from user_reports
+            where status ='pending'
+        union all
+        select count(*) as cnt from gram_reports
+            where status ='pending'
+        ) report
+    </select>
+    <select id="countTotalMenue" resultType="int">
+        select count(*) from product_items
+    </select>
+    <select id="countTotalBrand" resultType="int">
+        select count(*) from product_brands
+    </select>
+    <select id="getCurrentReports" resultType="suspend">
+        select * from(
+                    select report_id,ps.user_id,ps.post_id as target_id,reason,ps.status,ps.created_at, 'post' as report_type, title as title_name,reason as suspension_reason   from post_reports ps join posts p on ps.post_id=p.post_id where ps.status='pending'
+                    union all
+                    select report_id,ur.user_id,target_user_id as target_id,reason,ur.status,ur.created_at,'user' as report_type,login_id as title_name,reason as suspension_reason  from user_reports ur join users u on u.user_id=ur.user_id where ur.status='pending'
+                    union all
+                    select report_id,gr.user_id,gr.gram_id as target_id,reason,gr.status,gr.created_at, 'gram' as report_type,title as title_name,reason as suspension_reason from gram_reports gr join grams g on g.gram_id=gr.gram_id where gr.status ='pending'
+                    union all
+                    select suggestion_id as report_id,pfs.user_id,product_id as target_id,user_note as reason,pfs.status,created_at,'suggestion' as report_type,(select name from product_items pi where pi.product_id=pfs.product_id) as title_name,user_note as suspension_reason from product_suggestions pfs where pfs.status='pending'
+                     ) reports order by created_at asc limit 5
+    </select>
+    <select id="countMenueReport" resultType="java.lang.Double">
+        select count(*) from product_suggestions where status=#{status}
+    </select>
+    <select id="getMenueReport" resultType="com.project.esg.admin.dto.MenueReport">
+        select suggestion_id,ps.user_id,login_id,ps.product_id,name,user_note,ps.status,ps.created_at from product_suggestions ps join product_items pi on ps.product_id=pi.product_id join users u on ps.user_id =u.user_id where ps.status=#{status} order by ps.created_at asc limit #{size} offset #{offset}
+    </select>
+    <update id="resolveMenueReport">
+        update product_suggestions set admin_note=#{adminNote},processed_by=#{processedBy}, completed_at=now(),status='resolved' where suggestion_id=#{suggestionId}
+    </update>
+    <update id="rejectMenueReport">
+        update product_suggestions set admin_note=#{adminNote},processed_by=#{processedBy}, completed_at=now(),status='rejected' where suggestion_id=#{suggestionId}
+    </update>
+    <select id="getNewUpdates" resultType="com.project.esg.admin.dto.SuspendDto">
+        select * from(
+                         select post_id,p.user_id,login_id,title,p.created_at from posts p join users u on p.user_id=u.user_id where p.status = 'active'
+                         union all
+                         select gram_id,g.user_id,login_id,title,g.created_at from grams g join users u on u.user_id=g.user_id where g.status = 'active'
+                     ) results order by created_at desc limit 5
+    </select>
+    <select id="countAllGrams" resultType="java.lang.Integer">
+        select count(*) from grams;
+    </select>
+    <select id="countAllPosts" resultType="java.lang.Integer">
+        select count(*) from posts;
+    </select>
+
+
+    <!-- 락 걸고 조회 -->
+<!--    <select id="selectUserForUpdate" resultType="string">-->
+<!--        SELECT status FROM users-->
+<!--        WHERE user_id = #{targetUserId}-->
+<!--            FOR UPDATE-->
+<!--    </select>-->
+</mapper>

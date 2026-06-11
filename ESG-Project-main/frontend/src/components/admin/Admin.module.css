@@ -1,0 +1,995 @@
+/*InsertMenue*/
+.menue_wrap {
+  width: 1000px;
+  margin: 0px auto;
+}
+.menue_category {
+  display: flex;
+  gap: 20px;
+}
+.menue_category select {
+  width: 80px;
+}
+.other_information {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.other_information input {
+  width: 800px;
+  height: 35px;
+  border-radius: var(--radius-sm);
+  padding: 4px;
+}
+.other_information textarea {
+  padding: 4px;
+  resize: none;
+  max-width: 800px;
+  max-height: 100px;
+  border-radius: var(--radius-sm);
+}
+.insert_menue_button {
+  margin-top: 10px;
+  background-color: var(--tomato);
+  border: 1px soild var(--ivory);
+}
+.insert_menue_img > img {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+/*menueDetail*/
+.admin_menue_detail_content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.admin_menue_detail_content input {
+  display: block;
+}
+.admin_menue_detail_content textarea {
+  min-width: 600px;
+  max-height: 100px;
+  resize: none;
+}
+.admin_menue_detail_img > img {
+  width: 400px;
+  height: 400px;
+}
+
+/*대시보드*/
+/* .admin_dashboard_title{
+
+} */
+/* .admin_dashboard_main {
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} */
+/* .admin_dashboard_upper_showcase {
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+  height: 400px;
+  margin: 0px auto;
+}
+.admin_dashboard_upper_showcase > div {
+  display: flex;
+  flex-direction: row;
+  gap: 250px;
+}
+.admin_dashboard_lower_showcase {
+  display: flex;
+  flex-direction: row;
+  width: 900px;
+  height: 100px;
+  gap: 270px;
+  margin: 0px auto;
+} */
+
+/* 
+멤버 전체보기 부분 css
+AdminMemberInfo
+*/
+
+/* ── 페이지 제목 ── */
+/* .AdminWrapperInfo{
+
+} */
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  width: 200px;
+  /* padding-bottom: 12px; */
+  /* border-bottom: 2px solid currentColor; */
+  opacity: 0.9;
+}
+
+/* ── 검색 · 필터 툴바 ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  padding: 7px 12px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  outline: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  width: 250px;
+}
+
+.searchInput:focus {
+  opacity: 1;
+}
+
+.searchBtn {
+  padding: 7px 16px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.searchBtn:hover {
+  opacity: 0.7;
+}
+
+.selectBox {
+  padding: 7px 10px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  outline: none;
+  opacity: 0.8;
+}
+
+.selectBox:focus {
+  opacity: 1;
+}
+
+/* ── 리스트 래퍼 ── */
+.listWrapper {
+  width: 100%;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* ── 공통 행(row) 그리드 ──
+   8컬럼: 아이디 | 닉네임 | 이메일 | 상태 | 정지이유 | 가입일 | 수정일 | 삭제일
+*/
+.headerRow,
+.dataRow {
+  display: grid;
+  grid-template-columns:
+    minmax(100px, 1.2fr) /* 로그인아이디 */
+    minmax(80px, 1fr) /* 닉네임 */
+    minmax(160px, 2fr) /* 이메일 */
+    minmax(70px, 0.8fr) /* 상태 */
+    minmax(80px, 0.9fr) /* 정지이유 */
+    minmax(90px, 1fr) /* 가입일 */
+    minmax(90px, 1fr) /* 수정일 */
+    minmax(90px, 1fr); /* 삭제일 */
+  align-items: center;
+  padding: 0 8px;
+  gap: 4px;
+}
+
+/* ── 헤더 행 ── */
+.headerRow {
+  padding: 12px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  border-bottom: 1px solid currentColor;
+}
+
+/* ── 데이터 행 ── */
+.dataRow {
+  padding: 14px 12px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border-bottom: 1px solid currentColor;
+  transition: opacity 0.15s;
+  opacity: 0.85;
+}
+
+.dataRow:last-child {
+  border-bottom: none;
+}
+
+.dataRow:hover {
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.08);
+}
+
+/* ── 셀 기본: 넘칠 경우 말줄임 ── */
+.headerRow span,
+.dataRow span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── 상태 배지 ── */
+.statusBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+.statusBadge[data-user-status="active"] {
+  color: var(--pickle);
+  border-color: var(--pickle);
+}
+.statusBadge[data-user-status="suspended"] {
+  color: var(--bun);
+  border-color: var(--bun);
+}
+.statusBadge[data-user-status="deleted"] {
+  color: var(--tomato);
+  border-color: var(--tomato);
+}
+
+/* ── 정지이유 버튼 ── */
+.reasonBtn {
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+.reasonBtn:hover {
+  opacity: 0.6;
+}
+
+/* 사유 없음 텍스트 */
+.noReason {
+  font-size: 0.78rem;
+  opacity: 0.4;
+  margin: 0;
+}
+
+/* ── 빈 결과 안내 ── */
+.emptyMsg {
+  text-align: center;
+  padding: 48px 0;
+  opacity: 0.4;
+  font-size: 0.9rem;
+}
+
+/* ── 페이지네이션 래퍼 (간격만) ── */
+.paginationWrapper {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ====================================================
+   AdminDashBoard
+   대시 보드
+   하위 라우팅 컴포넌트 전용 - 부모 레이아웃 색상 유지
+   ==================================================== */
+
+/* ── 전체 래퍼 ── */
+.dashMain {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ── 타이틀 섹션 ── */
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.titleText {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.titleSub {
+  font-size: 0.875rem;
+  opacity: 0.45;
+  margin: 0;
+}
+
+/* ── 스탯 카드 그리드 ── */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 4 → 3열로 변경 */
+  gap: 16px;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 20px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  opacity: 0.88;
+  transition: opacity 0.15s;
+  min-height: 110px;
+}
+
+.statCard:hover {
+  opacity: 1;
+}
+
+.statIcon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin: 0;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  margin: 0;
+}
+
+/* ── 공통 섹션 박스 ── */
+.sectionBox {
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* 섹션 헤더 (타이틀 + 전체 보기) */
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.85;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sectionLink {
+  font-size: 0.8rem;
+  opacity: 0.55;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.15s;
+}
+
+.sectionLink:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── 신고 리스트 ── */
+.reportList {
+  display: flex;
+  flex-direction: column;
+}
+
+.reportRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.reportRow:last-child {
+  border-bottom: none;
+}
+
+.reportRow:hover {
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.07);
+}
+
+/* 상태 배지 */
+.badge {
+  min-width: 55px;
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  opacity: 0.75;
+}
+.badge[data-status="post"] {
+  border-color: var(--bun);
+  color: var(--bun);
+}
+.badge[data-status="user"] {
+  border-color: var(--green);
+  color: var(--green);
+}
+.badge[data-status="suggestion"] {
+  border-color: var(--pickle);
+  color: var(--pickle);
+}
+.badge[data-status="gram"] {
+  border-color: var(--tomato);
+  color: var(--tomato);
+}
+
+/* 신고 제목 */
+/* .reportTitle {
+  /* flex: 1; */
+/* margin-left: 10px; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* .reportContent{
+
+} */
+
+/* 날짜 
+.reportDate {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  opacity: 0.4;
+} */
+.reportTitle {
+  width: 250px;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reportContent {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reportDate {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  opacity: 0.4;
+}
+
+/* 빈 결과 */
+.emptyMsg {
+  text-align: center;
+  padding: 40px 0;
+  opacity: 0.35;
+  font-size: 0.875rem;
+}
+
+/* ── 반응형: 태블릿 이하 ── */
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====================================================
+   AdminReportStatus.module.css
+   하위 라우팅 컴포넌트 전용 - 부모 레이아웃 색상 유지
+   ==================================================== */
+
+/* ── 전체 래퍼 ── */
+.pageMain {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── 타이틀 섹션 ── */
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.titleText {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.titleSub {
+  font-size: 0.85rem;
+  opacity: 0.45;
+  margin: 0;
+}
+
+/* ── 필터 버튼 그룹 ── */
+.filterGroup {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  padding: 7px 18px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.15s;
+}
+
+.filterBtn:hover {
+  opacity: 0.75;
+}
+
+/* 활성화 필터 버튼 */
+.filterBtnActive {
+  padding: 7px 18px;
+  border: 1px solid var(--tomato);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--tomato);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 1;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+/* ── 카드 리스트 ── */
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── 개별 카드 ── */
+.reportCard {
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0.88;
+  transition: opacity 0.15s;
+}
+
+.reportCard:hover {
+  opacity: 1;
+}
+
+/* ── 카드 상단: 배지(좌) + 액션버튼(우) ── */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 배지 묶음 */
+.badgeGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 상태 배지 (처리대기 / 해결완료 / 반려) */
+.statusBadge_report {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
+}
+
+/* 신고유형 배지 (메뉴 신고 / 게시글 / 후기) */
+.typeBadge_report {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.5;
+}
+.typeBadge_report[data-result-type="post"] {
+  border-color: var(--tomato);
+  color: var(--tomato);
+}
+.typeBadge_report[data-result-type="user"] {
+  border-color: var(--pickle);
+  color: var(--pickle);
+}
+.typeBadge_report[data-result-type="gram"] {
+  border-color: var(--bun);
+  color: var(--bun);
+}
+
+/* 액션 버튼 묶음 */
+.actionGroup {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* 해결 버튼 */
+.resolveBtn {
+  padding: 5px 14px;
+  border: 1px solid var(--pickle);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--pickle);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+
+.resolveBtn:hover {
+  opacity: 1;
+}
+
+/* 반려 버튼 */
+.rejectBtn {
+  padding: 5px 14px;
+  border: 1px solid var(--tomato);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--tomato);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+
+.rejectBtn:hover {
+  opacity: 1;
+}
+
+/* ── 카드 본문 ── */
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  opacity: 0.92;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 메타 정보 (신고자 · 대상 · 날짜) */
+.cardMeta {
+  font-size: 0.78rem;
+  opacity: 0.4;
+  margin: 0;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.metaDot {
+  opacity: 0.5;
+}
+
+/* ── 빈 결과 ── */
+.emptyMsg {
+  text-align: center;
+  padding: 48px 0;
+  opacity: 0.35;
+  font-size: 0.875rem;
+}
+
+/* ── 페이지네이션 래퍼 ── */
+.paginationWrapper {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ====================================================
+   MenuReportProcess.module.css
+   AdminReportStatus 와 동일한 카드 패턴
+   ==================================================== */
+
+/* ── 전체 래퍼 ── */
+.pageMain {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── 타이틀 섹션 ── */
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 200px;
+}
+
+.titleText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.titleSub {
+  font-size: 0.85rem;
+  opacity: 0.45;
+  margin: 0;
+}
+
+/* ── 필터 버튼 그룹 ── */
+.filterGroup {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* .filterBtn {
+  padding: 7px 18px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.15s;
+}
+
+.filterBtn:hover {
+  opacity: 0.75;
+}
+
+.filterBtnActive {
+  padding: 7px 18px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 1;
+  box-shadow: inset 0 0 0 1px currentColor;
+} */
+
+/* ── 카드 리스트 ── */
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── 개별 카드 ── */
+.reportCard {
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0.88;
+  transition: opacity 0.15s;
+}
+
+.reportCard:hover {
+  opacity: 1;
+}
+
+/* ── 카드 상단: 배지(좌) + 액션버튼(우) ── */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 상태 배지 */
+.statusBadge {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
+}
+
+/* ── 처리 버튼 (pending일 때만 활성) ── */
+.actionBtn {
+  padding: 5px 14px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.actionBtn:hover:not(:disabled) {
+  opacity: 1;
+}
+
+.actionBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  border-style: dashed;
+}
+
+/* ── 카드 제목 (메뉴명) ── */
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  opacity: 0.92;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── 제보 내용 ── */
+.cardNote {
+  font-size: 0.875rem;
+  opacity: 0.7;
+  margin: 0;
+  /* 두 줄까지만 표시 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── 메타 정보 (신고자 · 날짜) ── */
+.cardMeta {
+  font-size: 0.78rem;
+  opacity: 0.4;
+  margin: 0;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.metaDot {
+  opacity: 0.5;
+}
+
+/* ── 빈 결과 ── */
+.emptyMsg {
+  text-align: center;
+  padding: 48px 0;
+  opacity: 0.35;
+  font-size: 0.875rem;
+}
+
+/* ── 페이지네이션 래퍼 ── */
+.paginationWrapper {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  position: relative; /* closeBtn의 absolute 기준점 */
+  width: 850px;
+  max-width: 90vw; /* 좁은 화면 대응 */
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 50px 24px 24px;
+  background: rgba(20, 12, 6, 0.97); /* 어두운 카드 배경 */
+  border: 1px solid rgba(231, 181, 106, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+}
+/* .closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10000;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+} */
+.closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 100;
+}

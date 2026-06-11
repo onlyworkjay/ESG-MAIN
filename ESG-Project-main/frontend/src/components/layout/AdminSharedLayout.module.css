@@ -1,0 +1,30 @@
+/* 전체 admin/master 레이아웃: 사이드바 + 콘텐츠 가로 배치 */
+.admin_wrapper {
+  display: flex;
+  min-height: calc(100vh - 48px);
+  /* margin-bottom: 20px; */
+}
+
+/* 왼쪽 사이드바 영역 */
+.admin_sidebar {
+  width: 300px;
+  flex-shrink: 0; /*0은 현재공간 절대 사수*/
+  padding: 16px;
+  background: #1e1e1e;
+  border-right: 1px solid #333;
+  border-radius: 20px;
+}
+
+/* 오른쪽 메인 콘텐츠 영역 (Routes가 렌더되는 곳) */
+/* .admin_content {
+  flex: 1; /* flex-grow : 1과 같음
+  padding: 24px;
+} */
+.admin_content {
+  flex: 1;
+  /* margin: 0px 40px;*/
+  padding-left: 40px;
+  overflow-x: hidden;
+  margin-top: 20px;
+  box-sizing: border-box;
+}

@@ -1,0 +1,9 @@
+엔드포인트:
+eatstatgram-db.c1su4acaapv8.ap-northeast-2.rds.amazonaws.com
+
+접속 아이디
+eatstat_admin
+
+접속 비밀번호
+gksk3685
+

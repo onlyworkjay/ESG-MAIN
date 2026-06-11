@@ -1,0 +1,256 @@
+/*CreateAdmin*/
+/* .createAdmin_page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #f5f5f5;
+}
+
+.createAdmin_title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.createAdmin_wrap {
+  width: 100%;
+  min-width: 0;
+}
+
+.createAdmin_form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+  padding: 28px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  box-sizing: border-box;
+}
+
+.createAdmin_form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 15px;
+  color: #f5f5f5;
+}
+
+.createAdmin_form input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  box-sizing: border-box;
+}
+
+.createAdmin_form button {
+  width: 160px;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  background: #2f80ed;
+  color: #fff;
+  cursor: pointer;
+}
+
+.correct_pw {
+  color: var(--green);
+}
+
+.wrong_pw {
+  color: var(--tomato);
+} */
+/* ====================================================
+   CreateAdmin.module.css
+   ==================================================== */
+
+/* ── 전체 래퍼 ── */
+.createAdmin_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 560px;
+}
+
+.createAdmin_wrap > h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.95;
+}
+
+/* ── 폼 전체 ── */
+.createAdmin_form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── 공통 label ── */
+.createAdmin_form label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-top: 12px;
+}
+
+/* ── 공통 input (이전보다 더 존재감 있게) ── */
+.createAdmin_form input {
+  padding: 11px 16px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.07);
+  color: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  opacity: 0.8;
+  transition:
+    opacity 0.2s,
+    box-shadow 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.createAdmin_form input:focus {
+  opacity: 1;
+  box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.28);
+}
+
+.createAdmin_form input:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+/* ── 아이디 / 현재 암호: label+input+button 가로 배치 ── */
+.createAdmin_form > div:has(button) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.createAdmin_form > div:has(button) label {
+  width: 100%; /*label은 위 한 줄*/
+  margin-top: 0;
+}
+
+.createAdmin_form > div:has(button) input {
+  flex: 1;
+  min-width: 160px;
+}
+
+/* 인라인 액션 버튼(중복체크, 암호확인) */
+.createAdmin_form > div:has(button) button {
+  padding: 11px 16px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.07);
+  color: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0.7;
+  transition:
+    opacity 0.15s,
+    box-shadow 0.2s;
+}
+
+.createAdmin_form > div:has(button) button:hover {
+  opacity: 1;
+  box-shadow: 0 0 0 1px currentColor;
+}
+
+/* 중복체크 확인 메시지 */
+.createAdmin_form > div:has(button) > p {
+  width: 100%;
+  font-size: 0.78rem;
+  opacity: 0.55;
+  margin: 2px 0 0;
+}
+
+/* ── 유효성 검사 메시지 div ── */
+.createAdmin_form > div:not(:has(button)) {
+  min-height: 20px;
+}
+
+.createAdmin_form > div:not(:has(button)) > p {
+  font-size: 0.78rem;
+  margin: 2px 0 0;
+  opacity: 0.75;
+}
+
+/* ── 비밀번호 일치 여부 ── */
+.correct_pw {
+  font-size: 0.78rem;
+  margin: 2px 0 0;
+  color: #4ade80;
+}
+
+.wrong_pw {
+  font-size: 0.78rem;
+  margin: 2px 0 0;
+  color: #f87171;
+}
+
+/* ── 관리자 등록 제출 버튼 ── */
+.createAdmin_form > button[type="submit"] {
+  margin-top: 20px;
+  align-self: flex-end;
+  padding: 11px 36px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.createAdmin_form > button[type="submit"]:hover {
+  opacity: 1;
+}
+
+/* 별명·이메일 직접 자식 액션 버튼
+.createAdmin_form > button[type="button"] {
+  padding: 11px 16px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.07);
+  color: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0.7;
+  align-self: flex-start; /* 폼이 flex-column이므로 버튼 너비 자동 
+  transition:
+    opacity 0.15s,
+    box-shadow 0.2s;
+}
+
+.createAdmin_form > button[type="button"]:hover {
+  opacity: 1;
+  box-shadow: 0 0 0 1px currentColor;
+}
+
+/* 별명·이메일 중복체크 결과 메시지 
+.createAdmin_form > p {
+  font-size: 0.78rem;
+  opacity: 0.55;
+  margin: 2px 0 0;
+} */

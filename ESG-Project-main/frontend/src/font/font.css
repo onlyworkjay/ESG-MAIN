@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "bold";
+  src: url(./GmarketSansTTFBold.ttf);
+}
+@font-face {
+  font-family: "light";
+  src: url(./GmarketSansTTFLight.ttf);
+}
+@font-face {
+  font-family: "medium";
+  src: url(./GmarketSansTTFMedium.ttf);
+}

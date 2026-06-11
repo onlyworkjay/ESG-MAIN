@@ -1,0 +1,143 @@
+.page {
+  min-height: 100vh;
+  padding: 46px 48px 72px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(231, 181, 106, 0.08),
+      rgba(42, 37, 34, 0.96) 340px
+    ),
+    var(--background);
+  color: var(--ivory);
+}
+
+.authGuard {
+  min-height: 100vh;
+
+  background: var(--background);
+}
+
+.hero,
+.formPanel {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.hero {
+  margin-bottom: 24px;
+  padding: 30px 34px;
+
+  border: 1px solid rgba(231, 181, 106, 0.2);
+  border-radius: var(--radius-lg);
+
+  background:
+    linear-gradient(135deg, rgba(74, 46, 36, 0.92), rgba(31, 25, 22, 0.94)),
+    radial-gradient(circle at 86% 18%, rgba(231, 181, 106, 0.24), transparent 26%);
+
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+.hero span {
+  color: var(--bun);
+
+  font-family: bold;
+  font-size: 13px;
+}
+
+.hero h1 {
+  margin: 10px 0 8px;
+
+  color: #fff8ec;
+
+  font-family: bold;
+  font-size: 40px;
+  line-height: 1.1;
+}
+
+.hero p {
+  color: rgba(255, 248, 236, 0.68);
+
+  font-size: 15px;
+}
+
+.formPanel {
+  padding: 28px;
+
+  border: 1px solid rgba(255, 248, 236, 0.08);
+  border-radius: var(--radius-lg);
+
+  background: rgba(255, 248, 236, 0.045);
+}
+
+.actionBar {
+  margin-top: 24px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancelButton,
+.submitButton {
+  min-height: 46px;
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  border-radius: var(--radius-md);
+
+  font-family: bold;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cancelButton {
+  border: 1px solid rgba(255, 248, 236, 0.1);
+
+  background: rgba(0, 0, 0, 0.14);
+  color: rgba(255, 248, 236, 0.72);
+}
+
+.submitButton {
+  background: var(--bun);
+  color: var(--patty);
+
+  box-shadow: 0 14px 28px rgba(231, 181, 106, 0.16);
+}
+
+.cancelButton:hover,
+.submitButton:hover {
+  transform: translateY(-2px);
+}
+
+.buttonIcon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 30px 20px 56px;
+  }
+
+  .hero,
+  .formPanel {
+    padding: 24px 18px;
+  }
+
+  .actionBar {
+    flex-direction: column-reverse;
+  }
+
+  .cancelButton,
+  .submitButton {
+    width: 100%;
+  }
+}
